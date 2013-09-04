@@ -1,14 +1,21 @@
 <?php
-error_reporting(E_ALL);
-header('content-type: text/plain');
-$vocabTXT = file_get_contents('vocab.json');
-if (!($vocabList = json_decode($vocabTXT)))
+if (!($vocabTXT = file_get_contents('vocab.json')))
 {
-    echo "crap";
+    throw new RuntimeException("Could not read vocab.json.");
+}
+if (!($vocabLists = json_decode($vocabTXT)))
+{
+    throw new RuntimeException("Could not parse vocab.json.");
 }
 
-print_r($vocabList);
-exit;
+//header('content-type: text/plain');
+//print_r($vocabList);
+
+
+$listId = filter_input(INPUT_GET, 'list', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'list', FILTER_SANITIZE_NUMBER_INT) : 0;
+
+$list = $vocabLists[$listId];
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,6 +24,9 @@ exit;
     <style>
         input#def { font-size: 150%; }
     </style>
+    <script>
+        var vocabList = <?php echo json_encode($list); ?>;
+    </script>
 </head>
 <body>
     <h1 id="term"></h1>
