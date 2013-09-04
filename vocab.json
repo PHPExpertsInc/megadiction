@@ -1,3 +1,4 @@
+[
 {
 	"title": "List 31",
 	"roots" : [
@@ -143,7 +144,9 @@
 			"term" : "unilateral",
 			"def" : "one-sided"
 		}
-	],
+	]
+},
+{
 	"title": "List 32",
 	"roots" : [
 		{
@@ -296,7 +299,9 @@
 			"term" : "gregarious",
 			"def" : "sociable"
 		}
-	],
+	]
+},
+{
 	"title": "List 33",
 	"roots" : [
 		{
@@ -449,7 +454,9 @@
 			"term" : "tangible",
 			"def" : "touchable"
 		}
-	],
+	]
+},
+{
 	"title": "List 34",
 	"roots" : [
 		{
@@ -598,7 +605,9 @@
 			"term" : "epigram",
 			"def" : "witty comment"
 		}
-	],
+	]
+},
+{
 	"title": "List 35",
 	"roots" : [
 		{
@@ -735,7 +744,9 @@
 			"term" : "introspective",
 			"def" : "inward looking"
 		}
-	],
+	]
+},
+{
 	"title": "List 36",
 	"roots" : [
 		{
@@ -884,7 +895,9 @@
 			"term" : "tortuous",
 			"def" : "twisting"
 		}
-	],
+	]
+},
+{
 	"title": "List 37",
 	"roots" : [
 		{
@@ -1029,7 +1042,9 @@
 			"term" : "pusillanimous",
 			"def" : "small-minded"
 		}
-	],
+	]
+},
+{
 	"title": "List 38",
 	"roots" : [
 		{
@@ -1151,7 +1166,7 @@
 			"def" : "fear of insanity"
 		},
 		{
-			"term" : "idée fixe",
+			"term" : "idÃ©e fixe",
 			"def" : "obsession"
 		},
 		{
@@ -1174,7 +1189,9 @@
 			"term" : "euphony",
 			"def" : "beautiful sound"
 		}
-	],
+	]
+},
+{
 	"title": "List 39",
 	"roots" : [
 		{
@@ -1327,7 +1344,9 @@
 			"term" : "in loco parentis",
 			"def" : "in place of the parents"
 		}
-	],
+	]
+},
+{
 	"title": "List 40",
 	"roots" : [
 		{
@@ -1464,7 +1483,9 @@
 			"term" : "emissary",
 			"def" : "messenger"
 		}
-	],
+	]
+},
+{
 	"title": "List 41",
 	"roots" : [
 		{
@@ -1605,7 +1626,9 @@
 			"term" : "specious",
 			"def" : "false"
 		}
-	],
+	]
+},
+{
 	"title": "List 42",
 	"roots" : [
 		{
@@ -1770,7 +1793,9 @@
 			"term" : "discursive",
 			"def" : "rambling"
 		}
-	],
+	]
+},
+{
 	"title": "List 43",
 	"roots" : [
 		{
@@ -1915,7 +1940,9 @@
 			"term" : "diatribe",
 			"def" : "abusive speech"
 		}
-	],
+	]
+},
+{
 	"title": "List 44",
 	"roots" : [
 		{
@@ -2052,7 +2079,9 @@
 			"term" : "somnambulist",
 			"def" : "sleepwalker"
 		}
-	],
+	]
+},
+{
 	"title": "List 45",
 	"roots" : [
 		{
@@ -2129,3 +2158,4 @@
 		}
 	]
 }
+]
