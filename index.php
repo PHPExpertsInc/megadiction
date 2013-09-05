@@ -23,27 +23,80 @@ $list = $vocabLists[$listId];
     <title>Megadiction</title>
     <style>
         input#def { font-size: 150%; }
+        div#correctAnswer, div#wrongAnswer { display: none; }
     </style>
     <script>
         var vocabList = <?php echo json_encode($list); ?>;
     </script>
 </head>
 <body>
-    <h1 id="term"></h1>
+    <h1 id="title">Vocab: <span></span></h1>
+    <h2 id="term"></h2>
     <div>
         <input type="text" id="def" name="def"/>
     </div>
+    <div id="correctAnswer">
+        <h4>Correct!</h4>
+        <button id="next">Next...</button>
+    </div>
+    <div id="wrongAnswer"><h4>Wrong! Try again.</h4></div>
     <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
     <script type="text/javascript">
+function setupList(listNo) {
+    window.termNo = 0;
+    $('h1#title span').html(vocabList.title);
+    $('input#def').focus();
+}
+
+function nextTerm() {
+    $('div#correctAnswer').css('display', 'none');
+    $('div#wrongAnswer').css('display', 'none');
+
+    $('h2#term').html((window.termNo + 1) + ". " + vocabList.roots[window.termNo].term);
+
+    if ($('div#def')) {
+        $('div#def').replaceWith('<input type="text" id="def"/>');
+    }
+
+    $('input#def').focus().select();
+    //alert(termNo + " : " + vocabList.roots[0].term + " := " + vocabList.roots[0].def);
+    //++termNo;
+}
+
 function checkAnswer(answer) {
-    alert(answer);
+    //alert("answer -" + answer + "- vs " + vocabList.roots[window.termNo].def);
+    if (answer == vocabList.roots[window.termNo].def) {
+        $('div#wrongAnswer').css('display', 'none');
+        $('div#correctAnswer').css('display', 'block');
+        $('input#def').replaceWith('<div id="def">' + answer + '</div>');
+        $('button#next').focus();
+        ++window.termNo;
+    } else {
+        $('div#correctAnswer').css('display', 'none');
+        $('div#wrongAnswer').css('display', 'block');
+    }
+
+    $('input#def').focus().select();
 }
 
  $(function () {
+    setupList(<?php echo $listId; ?>);
+    nextTerm();
+
+    $('body').on('keypress', 'input#def', function(e) {
+        if (e.keyCode == 13) {
+            checkAnswer($(this).val());
+        }
+    });
+/*
     $('input#def').bind('keypress', function(e) {
         if (e.keyCode == 13) {
             checkAnswer($(this).val());
         }
+    });
+*/
+    $('button#next').click(function () {
+        nextTerm();
     });
 
  });
