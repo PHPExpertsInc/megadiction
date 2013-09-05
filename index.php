@@ -35,6 +35,12 @@ $list = $vocabLists[$listId];
 		div#wonBox { display: none; background: #FEF5CA; border: 1px dotted grey; padding: 0 50px; }
 		div#wonBox h2 { font-size: 120%; text-align: center; }
 		div#wonBox p { text-align: center; }
+
+		table.score { background: white; padding-right: -20px; margin: 0 auto; }
+		table.score th { text-align: left; padding-left: 20px; }
+		table.score td { width: 7em; text-align: center; }
+		table.score .correct { color: green; }
+		table.score .wrong { color: red; }
 	</style>
 	<script>
 		var vocabList = <?php echo json_encode($list); ?>;
@@ -58,11 +64,34 @@ $list = $vocabLists[$listId];
 		<div id="wrongAnswer"><h4>Wrong! Try again.</h4></div>
 		<div id="wonBox">
 			<h2>Congratulations! You've won!</h2>
+			<table class="score">
+				<tr>
+					<th>Guesses</th>
+					<td class="guesses"></td>
+				</tr>
+				<tr>
+					<th>Correct</th>
+					<td class="correct"></td>
+				</tr>
+				<tr>
+					<th>Wrong</th>
+					<td class="wrong"></td>
+				</tr>
+			</table>
 			<p>Go to the <a href="?listId=<?php echo ($listId + 1); ?>"><strong>next lesson</strong></a>.</p>
 		</div>
 	</div>
 	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript">
+
+function Score() {
+	this.guesses = 0;
+	this.correct = 0;
+	this.wrong = 0;
+}
+
+var score = new Score();
+
 function setupList(listNo) {
 	window.termNo = 0;
 	$('h1#title span').html(vocabList.title);
@@ -76,6 +105,16 @@ function setupList(listNo) {
 	}
 
 	window.currentSet = window.sets.shift();
+}
+
+function showVictoryBox() {
+	var wonBox = $('div#wonBox');
+
+	wonBox.find('.guesses').html(score.guesses);
+	wonBox.find('.correct').html(score.correct + ' (' + ((score.correct / score.guesses) * 100).toFixed(1) + ')');
+	wonBox.find('.wrong').html(score.wrong + ' (' + ((score.wrong / score.guesses) * 100).toFixed(1) + ')');
+
+	wonBox.show();
 }
 
 function nextTerm() {
@@ -96,7 +135,9 @@ function nextTerm() {
 
 function checkAnswer(answer) {
 	//alert("answer -" + answer + "- vs " + vocabList.roots[window.termNo].def);
+	++score.guesses;
 	if (answer == window.currentDef) {
+		++score.correct;
 		$('div#wrongAnswer').hide();
 		$('div#correctAnswer').show();
 		$('input#def').replaceWith('<div id="def">' + answer + '</div>');
@@ -112,10 +153,11 @@ function checkAnswer(answer) {
 			if (window.currentSet === undefined)
 			{
 				$('button#next').hide();
-				$('div#wonBox').show();
+				showVictoryBox();
 			}
 		}
 	} else {
+		++score.wrong;
 		$('div#correctAnswer').css('display', 'none');
 		$('div#wrongAnswer').css('display', 'block');
 	}
