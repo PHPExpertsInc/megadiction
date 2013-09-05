@@ -12,7 +12,7 @@ if (!($vocabLists = json_decode($vocabTXT)))
 //print_r($vocabList);
 
 
-$listId = filter_input(INPUT_GET, 'list', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'list', FILTER_SANITIZE_NUMBER_INT) : 0;
+$listId = filter_input(INPUT_GET, 'listId', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'listId', FILTER_SANITIZE_NUMBER_INT) : 0;
 
 $list = $vocabLists[$listId];
 
@@ -30,6 +30,11 @@ $list = $vocabLists[$listId];
 		div#correctAnswer, div#wrongAnswer { display: none; }
 		span.accesskey { text-decoration: underline; }
 		a span.accesskey { font-weight: bold; padding: 1px; }
+
+
+		div#wonBox { display: none; background: #FEF5CA; border: 1px dotted grey; padding: 0 50px; }
+		div#wonBox h2 { font-size: 120%; text-align: center; }
+		div#wonBox p { text-align: center; }
 	</style>
 	<script>
 		var vocabList = <?php echo json_encode($list); ?>;
@@ -51,6 +56,10 @@ $list = $vocabLists[$listId];
 			<button id="next" accesskey="n">Next...</button>
 		</div>
 		<div id="wrongAnswer"><h4>Wrong! Try again.</h4></div>
+		<div id="wonBox">
+			<h2>Congratulations! You've won!</h2>
+			<p>Go to the <a href="?listId=<?php echo ($listId + 1); ?>"><strong>next lesson</strong></a>.</p>
+		</div>
 	</div>
 	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript">
@@ -103,7 +112,7 @@ function checkAnswer(answer) {
 			if (window.currentSet === undefined)
 			{
 				$('button#next').hide();
-				alert("Congratulations! You've won!");
+				$('div#wonBox').show();
 			}
 		}
 	} else {
