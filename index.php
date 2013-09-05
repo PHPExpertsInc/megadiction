@@ -78,7 +78,8 @@ $list = $vocabLists[$listId];
 					<td class="wrong"></td>
 				</tr>
 			</table>
-			<p>Go to the <a href="?listId=<?php echo ($listId + 1); ?>"><strong>next lesson</strong></a>.</p>
+			<p>Go to the <a href="?listId=<?php echo ($listId + 1); ?>"><strong>next lesson</strong></a>, <br/>
+			   or <strong><a href="javascript: randomizeLesson();">randomize</a></strong> the current flash cards and play again.</p>
 		</div>
 	</div>
 	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
@@ -92,7 +93,7 @@ function Score() {
 
 var score = new Score();
 
-function setupList(listNo) {
+function setupList() {
 	window.termNo = 0;
 	$('h1#title span').html(vocabList.title);
 	$('input#def').focus();
@@ -104,6 +105,7 @@ function setupList(listNo) {
 		 }
 	}
 
+	window.origSets = window.sets.slice(0);  // Use array.slice(0) to clone an array.
 	window.currentSet = window.sets.shift();
 }
 
@@ -133,29 +135,39 @@ function nextTerm() {
 	$('input#def').focus().select();
 }
 
+function switchToNextListSet() {
+	if (vocabList[window.currentSet][window.termNo] === undefined) {
+		//alert("Before: " + window.currentSet);
+		window.termNo = 0;
+		window.currentSet = window.sets.shift();
+		//alert("After: " + window.currentSet);
+
+		if (window.currentSet === undefined)
+		{
+			$('button#next').hide();
+			$('button#next').blur();
+
+			showVictoryBox();
+		}
+	}
+}
+
 function checkAnswer(answer) {
 	//alert("answer -" + answer + "- vs " + vocabList.roots[window.termNo].def);
 	++score.guesses;
+
 	if (answer == window.currentDef) {
 		++score.correct;
+		$('div#wonBox').hide();
 		$('div#wrongAnswer').hide();
 		$('div#correctAnswer').show();
 		$('input#def').replaceWith('<div id="def">' + answer + '</div>');
 		$('div#showAnswerBox').hide();
 		$('input#showAnswer').prop('checked', false);
-		$('button#next').focus();
+		$('button#next').show().focus();
 		++window.termNo;
 
-		if (vocabList[window.currentSet][window.termNo] === undefined) {
-			window.termNo = 0;
-			window.currentSet = window.sets.shift();
-
-			if (window.currentSet === undefined)
-			{
-				$('button#next').hide();
-				showVictoryBox();
-			}
-		}
+		switchToNextListSet();
 	} else {
 		++score.wrong;
 		$('div#correctAnswer').css('display', 'none');
@@ -164,9 +176,59 @@ function checkAnswer(answer) {
 
 	$('input#def').focus().select();
 }
+/*
+	Fischer-Yates Shuffle.
+	License: Public Domain
+ 	http://bost.ocks.org/mike/shuffle/
+ */
+function shuffle(array) {
+	var m = array.length, t, i;
+
+	// While there remain elements to shuffle…
+	while (m) {
+
+		// Pick a remaining element…
+		i = Math.floor(Math.random() * m--);
+
+		// And swap it with the current element.
+		t = array[m];
+		array[m] = array[i];
+		array[i] = t;
+	}
+
+	return array;
+}
+
+function randomizeLesson()
+{
+	score = new Score();
+	setupList();
+
+	vocabList.random = [];
+	var superArray = [];
+	for (var i = 0; i < window.origSets.length; ++i) {
+		if (window.origSets[i] == 'random') { continue; }
+
+		superArray = superArray.concat(vocabList[window.origSets[i]]);
+	}
+
+	vocabList.random = shuffle(superArray);
+/*	alert('hmm ' + vocabList.random);
+
+	for (var i = 0; i < vocabList.random.length; ++i) {
+		alert("term: " + vocabList.random[i].term);
+	}
+*/
+	window.sets.push('random');
+	window.currentSet = 'random';
+
+
+	switchToNextListSet();
+	nextTerm();
+}
 
  $(function () {
-	setupList(<?php echo $listId; ?>);
+	setupList();
 	nextTerm();
 
 	$('body').on('keypress', 'input#def', function(e) {
