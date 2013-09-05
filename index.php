@@ -58,6 +58,15 @@ function setupList(listNo) {
 	window.termNo = 0;
 	$('h1#title span').html(vocabList.title);
 	$('input#def').focus();
+
+	window.sets = [];
+	for (var propName in vocabList) {
+		 if (typeof vocabList[propName] === 'object') {
+			 window.sets.push(propName);
+		 }
+	}
+
+	window.currentSet = window.sets.shift();
 }
 
 function nextTerm() {
@@ -65,20 +74,16 @@ function nextTerm() {
 	$('div#wrongAnswer').hide();
 	$('div#showAnswerBox').show();
 
-	window.currentDef = vocabList.roots[window.termNo].def;
+	window.currentDef = vocabList[window.currentSet][window.termNo].def;
 
-	$('h2#term').html((window.termNo + 1) + ". " + vocabList.roots[window.termNo].term);
+	$('h2#term').html((window.termNo + 1) + ". " + vocabList[window.currentSet][window.termNo].term);
 
 	if ($('div#def')) {
 		$('div#def').replaceWith('<input type="text" id="def"/>');
 	}
 
 	$('input#def').focus().select();
-	//alert(termNo + " : " + vocabList.roots[0].term + " := " + vocabList.roots[0].def);
-	//++termNo;
 }
-
-
 
 function checkAnswer(answer) {
 	//alert("answer -" + answer + "- vs " + vocabList.roots[window.termNo].def);
@@ -90,6 +95,17 @@ function checkAnswer(answer) {
 		$('input#showAnswer').prop('checked', false);
 		$('button#next').focus();
 		++window.termNo;
+
+		if (vocabList[window.currentSet][window.termNo] === undefined) {
+			window.termNo = 0;
+			window.currentSet = window.sets.shift();
+
+			if (window.currentSet === undefined)
+			{
+				$('button#next').hide();
+				alert("Congratulations! You've won!");
+			}
+		}
 	} else {
 		$('div#correctAnswer').css('display', 'none');
 		$('div#wrongAnswer').css('display', 'block');

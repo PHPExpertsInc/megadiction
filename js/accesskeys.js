@@ -75,5 +75,5 @@ if (document.addEventListener) {
 }
 
 /* for other browsers */
-window.onload = init;
+//window.onload = init;
 
