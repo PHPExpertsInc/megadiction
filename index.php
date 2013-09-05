@@ -22,7 +22,7 @@ $list = $vocabLists[$listId];
 <head>
     <title>Megadiction</title>
     <style>
-        input#def { font-size: 150%; }
+        #def { font-size: 150%; }
         div#correctAnswer, div#wrongAnswer { display: none; }
     </style>
     <script>
@@ -34,6 +34,9 @@ $list = $vocabLists[$listId];
     <h2 id="term"></h2>
     <div>
         <input type="text" id="def" name="def"/>
+    </div>
+    <div id="showAnswerBox">
+        <input type="checkbox" id="showAnswer"/> <label for="showAnswer">Show answer</label>
     </div>
     <div id="correctAnswer">
         <h4>Correct!</h4>
@@ -52,6 +55,8 @@ function nextTerm() {
     $('div#correctAnswer').css('display', 'none');
     $('div#wrongAnswer').css('display', 'none');
 
+    window.currentDef = vocabList.roots[window.termNo].def;
+
     $('h2#term').html((window.termNo + 1) + ". " + vocabList.roots[window.termNo].term);
 
     if ($('div#def')) {
@@ -63,12 +68,15 @@ function nextTerm() {
     //++termNo;
 }
 
+
+
 function checkAnswer(answer) {
     //alert("answer -" + answer + "- vs " + vocabList.roots[window.termNo].def);
-    if (answer == vocabList.roots[window.termNo].def) {
+    if (answer == window.currentDef) {
         $('div#wrongAnswer').css('display', 'none');
         $('div#correctAnswer').css('display', 'block');
         $('input#def').replaceWith('<div id="def">' + answer + '</div>');
+        $('input#showAnswer').prop('checked', false);
         $('button#next').focus();
         ++window.termNo;
     } else {
@@ -85,20 +93,22 @@ function checkAnswer(answer) {
 
     $('body').on('keypress', 'input#def', function(e) {
         if (e.keyCode == 13) {
+
             checkAnswer($(this).val());
         }
     });
-/*
-    $('input#def').bind('keypress', function(e) {
-        if (e.keyCode == 13) {
-            checkAnswer($(this).val());
-        }
-    });
-*/
+
     $('button#next').click(function () {
         nextTerm();
     });
 
+    $('input#showAnswer').click(function () {
+        if ($(this).prop('checked') == true) {
+            $('input#def').attr('placeholder', window.currentDef);
+        }
+
+        $('input#def').focus().select();
+    });
  });
     </script>
 </body>
