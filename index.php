@@ -61,8 +61,9 @@ function setupList(listNo) {
 }
 
 function nextTerm() {
-	$('div#correctAnswer').css('display', 'none');
-	$('div#wrongAnswer').css('display', 'none');
+	$('div#correctAnswer').hide();
+	$('div#wrongAnswer').hide();
+	$('div#showAnswerBox').show();
 
 	window.currentDef = vocabList.roots[window.termNo].def;
 
@@ -82,9 +83,10 @@ function nextTerm() {
 function checkAnswer(answer) {
 	//alert("answer -" + answer + "- vs " + vocabList.roots[window.termNo].def);
 	if (answer == window.currentDef) {
-		$('div#wrongAnswer').css('display', 'none');
-		$('div#correctAnswer').css('display', 'block');
+		$('div#wrongAnswer').hide();
+		$('div#correctAnswer').show();
 		$('input#def').replaceWith('<div id="def">' + answer + '</div>');
+		$('div#showAnswerBox').hide();
 		$('input#showAnswer').prop('checked', false);
 		$('button#next').focus();
 		++window.termNo;
@@ -113,6 +115,7 @@ function checkAnswer(answer) {
 
 	$('input#showAnswer').click(function () {
 		if ($(this).prop('checked') == true) {
+			$('input#def').val('');
 			$('input#def').attr('placeholder', window.currentDef);
 		}
 
