@@ -24,23 +24,26 @@ $list = $vocabLists[$listId];
     <style>
         #def { font-size: 150%; }
         div#correctAnswer, div#wrongAnswer { display: none; }
+        span.accesskey { text-decoration: underline; }
+        a span.accesskey { font-weight: bold; padding: 1px; }
     </style>
     <script>
         var vocabList = <?php echo json_encode($list); ?>;
     </script>
+    <script src="js/accesskeys.js"></script>
 </head>
 <body>
     <h1 id="title">Vocab: <span></span></h1>
     <h2 id="term"></h2>
     <div>
-        <input type="text" id="def" name="def"/>
+        <input type="text" id="def" name="def" accesskey="d" />
     </div>
     <div id="showAnswerBox">
-        <input type="checkbox" id="showAnswer"/> <label for="showAnswer">Show answer</label>
+        <input type="checkbox" id="showAnswer" accesskey="a"/> <label for="showAnswer">Show answer</label>
     </div>
     <div id="correctAnswer">
         <h4>Correct!</h4>
-        <button id="next">Next...</button>
+        <button id="next" accesskey="n">Next...</button>
     </div>
     <div id="wrongAnswer"><h4>Wrong! Try again.</h4></div>
     <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
