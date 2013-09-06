@@ -216,8 +216,7 @@ function shuffle(array) {
 	return array;
 }
 
-function randomizeLesson()
-{
+function randomizeLesson() {
 	score = new Score();
 	setupList();
 
@@ -236,15 +235,14 @@ function randomizeLesson()
 		alert("term: " + flashcardList.random[i].term);
 	}
 */
-	window.sets.push('random');
 	window.currentSet = 'random';
 
-
 	switchToNextListSet();
+
 	nextTerm();
 }
 
- $(function () {
+$(function () {
 	setupList();
 	nextTerm();
 
@@ -267,7 +265,7 @@ function randomizeLesson()
 
 		$('input#def').focus().select();
 	});
- });
+});
 	</script>
 </body>
 </html>
