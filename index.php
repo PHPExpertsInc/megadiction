@@ -1,5 +1,5 @@
 <?php
-
+header('Content-Type: application/xhtml+xml');
 
 $flashcardList = isset($_GET['list']) ? filter_input(INPUT_GET, 'list', FILTER_SANITIZE_STRING) : 'vocab';
 if (preg_match('/(\.\.|\/)/', $flashcardList) === 1)
@@ -30,9 +30,10 @@ $listId = filter_input(INPUT_GET, 'listId', FILTER_VALIDATE_INT) ? filter_input(
 
 $list = $flashcardLists[$listId];
 
+echo "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?" . ">\n";
 ?>
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>Megadiction</title>
 	<style>
