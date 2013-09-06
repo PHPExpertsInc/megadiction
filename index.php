@@ -41,6 +41,8 @@ $list = $vocabLists[$listId];
 		table.score td { width: 7em; text-align: center; }
 		table.score .correct { color: green; }
 		table.score .wrong { color: red; }
+
+		div#dedication { position: fixed; bottom: 0; left: 0; color: #777; }
 	</style>
 	<script>
 		var vocabList = <?php echo json_encode($list); ?>;
@@ -49,7 +51,7 @@ $list = $vocabLists[$listId];
 </head>
 <body>
 	<div id="main">
-		<h1 id="title">Vocab: <span></span></h1>
+		<h1 id="title">Flashcards: <span></span></h1>
 		<h2 id="term"></h2>
 		<div>
 			<input type="text" id="def" name="def" accesskey="d" />
@@ -82,6 +84,7 @@ $list = $vocabLists[$listId];
 			   or <strong><a href="javascript: randomizeLesson();">randomize</a></strong> the current flash cards and play again.</p>
 		</div>
 	</div>
+	<div id="dedication">Dedicated to Hudson Q. Lee</div>
 	<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript">
 
