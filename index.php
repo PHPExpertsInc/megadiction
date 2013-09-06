@@ -83,42 +83,41 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?" . ">\n";
 			<li><a href="?list=multitables">Multiplication Tables</a></li>
 		</ul>
 		<div id="inner">
-		<h1 id="title">Flashcards: <span></span></h1>
-		<h2 id="term"></h2>
-		<div>
-			<input type="text" id="def" name="def" accesskey="d" />
+			<h1 id="title">Flashcards: <span></span></h1>
+			<h2 id="term"></h2>
+			<div>
+				<input type="text" id="def" name="def" accesskey="d" />
+			</div>
+			<div id="showAnswerBox">
+				<input type="checkbox" id="showAnswer" accesskey="a"/> <label for="showAnswer">Show answer</label>
+			</div>
+			<div id="correctAnswer">
+				<h4>Correct!</h4>
+				<button id="next" accesskey="n">Next...</button>
+			</div>
+			<div id="wrongAnswer"><h4>Wrong! Try again.</h4></div>
+			<div id="wonBox">
+				<h2>Congratulations! You've won!</h2>
+				<table class="score">
+					<tr>
+						<th>Guesses</th>
+						<td class="guesses"></td>
+					</tr>
+					<tr>
+						<th>Correct</th>
+						<td class="correct"></td>
+					</tr>
+					<tr>
+						<th>Wrong</th>
+						<td class="wrong"></td>
+					</tr>
+				</table>
+				<p>Go to the <a href="?listId=<?php echo ($listId + 1); ?>"><strong>next lesson</strong></a>, <br/>
+				   or <strong><a href="javascript: randomizeLesson();">randomize</a></strong> the current flash cards and play again.</p>
+			</div>
 		</div>
-		<div id="showAnswerBox">
-			<input type="checkbox" id="showAnswer" accesskey="a"/> <label for="showAnswer">Show answer</label>
-		</div>
-		<div id="correctAnswer">
-			<h4>Correct!</h4>
-			<button id="next" accesskey="n">Next...</button>
-		</div>
-		<div id="wrongAnswer"><h4>Wrong! Try again.</h4></div>
-		<div id="wonBox">
-			<h2>Congratulations! You've won!</h2>
-			<table class="score">
-				<tr>
-					<th>Guesses</th>
-					<td class="guesses"></td>
-				</tr>
-				<tr>
-					<th>Correct</th>
-					<td class="correct"></td>
-				</tr>
-				<tr>
-					<th>Wrong</th>
-					<td class="wrong"></td>
-				</tr>
-			</table>
-			<p>Go to the <a href="?listId=<?php echo ($listId + 1); ?>"><strong>next lesson</strong></a>, <br/>
-			   or <strong><a href="javascript: randomizeLesson();">randomize</a></strong> the current flash cards and play again.</p>
-		</div>
-	</div>
 	</div>
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
-	<br/>
 	<script src="js/jquery-2.0.3.min.js"/>
 	<script src="js/flashcards.js"/>
 </body>
