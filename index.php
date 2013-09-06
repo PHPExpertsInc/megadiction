@@ -1,20 +1,34 @@
 <?php
-if (!($vocabTXT = file_get_contents('vocab.json')))
+
+
+$flashcardList = isset($_GET['list']) ? filter_input(INPUT_GET, 'list', FILTER_SANITIZE_STRING) : 'vocab';
+if (preg_match('/(\.\.|\/)/', $flashcardList) === 1)
 {
-	throw new RuntimeException("Could not read vocab.json.");
+	throw new RuntimeException("Invalid list.");
 }
-if (!($vocabLists = json_decode($vocabTXT)))
+
+$flashcardFile = "$flashcardList.json";
+if (!file_exists($flashcardFile))
 {
-	throw new RuntimeException("Could not parse vocab.json.");
+	throw new RuntimeException("Could not find the flashcard file.");
+}
+
+if (!($flashcardTXT = file_get_contents($flashcardFile)))
+{
+	throw new RuntimeException("Could not read $flashcardFile.");
+}
+if (!($flashcardLists = json_decode($flashcardTXT)))
+{
+	throw new RuntimeException("Could not parse $flashcardFile.");
 }
 
 //header('content-type: text/plain');
-//print_r($vocabList);
+//print_r($flashcardList);
 
 
 $listId = filter_input(INPUT_GET, 'listId', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'listId', FILTER_SANITIZE_NUMBER_INT) : 0;
 
-$list = $vocabLists[$listId];
+$list = $flashcardLists[$listId];
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +59,7 @@ $list = $vocabLists[$listId];
 		div#dedication { position: fixed; bottom: 0; left: 0; color: #777; }
 	</style>
 	<script>
-		var vocabList = <?php echo json_encode($list); ?>;
+		var flashcardList = <?php echo json_encode($list); ?>;
 	</script>
 	<script src="js/accesskeys.js"></script>
 </head>
@@ -98,12 +112,12 @@ var score = new Score();
 
 function setupList() {
 	window.termNo = 0;
-	$('h1#title span').html(vocabList.title);
+	$('h1#title span').html(flashcardList.title);
 	$('input#def').focus();
 
 	window.sets = [];
-	for (var propName in vocabList) {
-		 if (typeof vocabList[propName] === 'object') {
+	for (var propName in flashcardList) {
+		 if (typeof flashcardList[propName] === 'object') {
 			 window.sets.push(propName);
 		 }
 	}
@@ -127,9 +141,9 @@ function nextTerm() {
 	$('div#wrongAnswer').hide();
 	$('div#showAnswerBox').show();
 
-	window.currentDef = vocabList[window.currentSet][window.termNo].def;
+	window.currentDef = flashcardList[window.currentSet][window.termNo].def;
 
-	$('h2#term').html((window.termNo + 1) + ". " + vocabList[window.currentSet][window.termNo].term);
+	$('h2#term').html((window.termNo + 1) + ". " + flashcardList[window.currentSet][window.termNo].term);
 
 	if ($('div#def')) {
 		$('div#def').replaceWith('<input type="text" id="def"/>');
@@ -139,7 +153,7 @@ function nextTerm() {
 }
 
 function switchToNextListSet() {
-	if (vocabList[window.currentSet][window.termNo] === undefined) {
+	if (flashcardList[window.currentSet][window.termNo] === undefined) {
 		//alert("Before: " + window.currentSet);
 		window.termNo = 0;
 		window.currentSet = window.sets.shift();
@@ -156,7 +170,7 @@ function switchToNextListSet() {
 }
 
 function checkAnswer(answer) {
-	//alert("answer -" + answer + "- vs " + vocabList.roots[window.termNo].def);
+	//alert("answer -" + answer + "- vs " + flashcardList.roots[window.termNo].def);
 	++score.guesses;
 
 	if (answer == window.currentDef) {
@@ -207,19 +221,19 @@ function randomizeLesson()
 	score = new Score();
 	setupList();
 
-	vocabList.random = [];
+	flashcardList.random = [];
 	var superArray = [];
 	for (var i = 0; i < window.origSets.length; ++i) {
 		if (window.origSets[i] == 'random') { continue; }
 
-		superArray = superArray.concat(vocabList[window.origSets[i]]);
+		superArray = superArray.concat(flashcardList[window.origSets[i]]);
 	}
 
-	vocabList.random = shuffle(superArray);
-/*	alert('hmm ' + vocabList.random);
+	flashcardList.random = shuffle(superArray);
+/*	alert('hmm ' + flashcardList.random);
 
-	for (var i = 0; i < vocabList.random.length; ++i) {
-		alert("term: " + vocabList.random[i].term);
+	for (var i = 0; i < flashcardList.random.length; ++i) {
+		alert("term: " + flashcardList.random[i].term);
 	}
 */
 	window.sets.push('random');
