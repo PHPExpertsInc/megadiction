@@ -37,11 +37,18 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?" . ">\n";
 <head>
 	<title>Megadiction</title>
 	<style>
+		body { background: url('images/abstract_0005.jpg') white; }
 		div#main {
+			background: white;
 			width: 25em;
 			margin: 0 auto;
+			border: 2px solid #4933D6;
+			height: 100%;
+			position: relative; top: -1px; right: -1px; 
 		}
-		#def { font-size: 150%; }
+		div#main #inner { margin: 20px; }
+
+		#def { font-size: 150%; width: 100%; }
 		div#correctAnswer, div#wrongAnswer { display: none; }
 		span.accesskey { text-decoration: underline; }
 		a span.accesskey { font-weight: bold; padding: 1px; }
@@ -51,13 +58,18 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?" . ">\n";
 		div#wonBox h2 { font-size: 120%; text-align: center; }
 		div#wonBox p { text-align: center; }
 
-		table.score { background: white; padding-right: -20px; margin: 0 auto; }
+		table.score { background: white; margin: 0 auto; }
 		table.score th { text-align: left; padding-left: 20px; }
 		table.score td { width: 7em; text-align: center; }
 		table.score .correct { color: green; }
 		table.score .wrong { color: red; }
 
-		div#dedication { position: fixed; bottom: 0; left: 0; color: #777; }
+		div#dedication { position: fixed; bottom: 0; left: 0; color: white; }
+
+		ul.menu { margin: 0 auto; padding: 5px 10px; text-align: center; list-style: none; font-weight: bold; background: #4933D6; color: white; }
+		ul.menu a { background: #4933D6; color: white; }
+		ul.menu li { display: inline;  }
+		ul.menu li + li::before { content: " | "; }
 	</style>
 	<script>
 		var flashcardList = <?php echo json_encode($list); ?>;
@@ -66,6 +78,11 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?" . ">\n";
 </head>
 <body>
 	<div id="main">
+		<ul class="menu">
+			<li><a href=".">Vocab</a></li>
+			<li><a href="?list=multitables">Multiplication Tables</a></li>
+		</ul>
+		<div id="inner">
 		<h1 id="title">Flashcards: <span></span></h1>
 		<h2 id="term"></h2>
 		<div>
@@ -98,6 +115,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?" . ">\n";
 			<p>Go to the <a href="?listId=<?php echo ($listId + 1); ?>"><strong>next lesson</strong></a>, <br/>
 			   or <strong><a href="javascript: randomizeLesson();">randomize</a></strong> the current flash cards and play again.</p>
 		</div>
+	</div>
 	</div>
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
 	<br/>
