@@ -46,7 +46,7 @@ include 'views/_header.tpl.php';
 			<li><a href="?list=multitables">Multiplication Tables</a></li>
 		</ul>
 		<div id="inner">
-			<h3 id="listtitle">Flashcards: <span></span></h3>
+			<h3 id="listtitle"><span id="title663"></span> Question #<span id="qNo"></span></h3>
 			<h2 id="term"></h2>
 			<div style="position: relative; height: 35px">
 				<input type="text" id="def" class="typeInBox" name="def" accesskey="d" />
@@ -84,7 +84,6 @@ include 'views/_header.tpl.php';
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
 	<script src="js/flashcards.js"/>
 	<script src="js/accesskeys.js"/>
-
 <?php
 include 'views/_footer.tpl.php';
 

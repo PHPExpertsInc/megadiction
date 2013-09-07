@@ -8,7 +8,8 @@ var score = new Score();
 
 function setupList() {
 	window.termNo = 0;
-	$('#listtitle span').html(flashcardList.title);
+	window.questionNo = 0;
+	$('#listtitle span#title663').html(flashcardList.title + ' | ');
 	$('input#def').focus();
 
 	window.sets = [];
@@ -33,13 +34,15 @@ function showVictoryBox() {
 }
 
 function nextTerm() {
+	++window.questionNo;
 	$('div#correctAnswer').hide();
 	$('div#wrongAnswer').hide();
 	$('div#showAnswerBox').show();
 
 	window.currentDef = flashcardList[window.currentSet][window.termNo].def;
 
-	$('h2#term').html((window.termNo + 1) + ". " + flashcardList[window.currentSet][window.termNo].term);
+	$('h3#listtitle span#qNo').html(window.questionNo);
+	$('h2#term').html(flashcardList[window.currentSet][window.termNo].term);
 
 	if ($('div#def')) {
 		$('div#def').replaceWith('<input type="text" id="def" class="typeInBox"/>');
@@ -113,6 +116,7 @@ function shuffle(array) {
 }
 
 function randomizeLesson() {
+	window.questionNo = 0;
 	score = new Score();
 	setupList();
 
