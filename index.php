@@ -84,7 +84,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?" . ">\n";
 		</div>
 	</div>
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
-	<script src="js/jquery-2.0.3.min.js"/>
+	<script src="js/jquery-1.8.3.min.js"/>
 	<script src="js/flashcards.js"/>
 </body>
 </html>
