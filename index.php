@@ -42,6 +42,7 @@ include 'views/_header.tpl.php';
 	<div id="main">
 		<ul class="menu">
 			<li><a href=".">Vocab</a></li>
+			<li><a href="?list=addition">Addition Tables</a></li>
 			<li><a href="?list=multitables">Multiplication Tables</a></li>
 		</ul>
 		<div id="inner">
