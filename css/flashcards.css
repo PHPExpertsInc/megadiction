@@ -31,10 +31,10 @@ table.score .wrong { color: red; }
 
 div#dedication { position: fixed; bottom: 0; left: 0; color: white; }
 
-ul.menu { margin: 0 auto; padding: 5px 10px; text-align: center; list-style: none; font-weight: bold; background: #4933D6; color: white; }
+ul.menu { margin: 0 auto; padding: 0; text-align: center; list-style: none; font-weight: bold; background: #4933D6; color: white; }
 ul.menu li { display: inline;  }
 ul.menu li + li::before { content: " | "; }
-ul.menu li a { background: #4933D6; color: white; }
+ul.menu li a { background: #4933D6; padding: 10px 20px; color: white; }
 
 /* Override main.css */
 div#wide-content { border: none; background: transparent; }
