@@ -7,6 +7,7 @@ function Score() {
 var score = new Score();
 
 function setupList() {
+	window.testMode = false;
 	window.termNo = 0;
 	window.questionNo = 0;
 	$('#listtitle span#title663').html(flashcardList.title + ' | ');
@@ -34,6 +35,7 @@ function showVictoryBox() {
 }
 
 function nextTerm() {
+	window.guessNo = 0;
 	++window.questionNo;
 	$('div#correctAnswer').hide();
 	$('div#wrongAnswer').hide();
@@ -84,9 +86,15 @@ function checkAnswer(answer) {
 
 		switchToNextListSet();
 	} else {
+		++window.guessNo;
 		++score.wrong;
 		$('div#correctAnswer').css('display', 'none');
 		$('div#wrongAnswer').css('display', 'block');
+
+		if (window.testMode == true && window.guessNo >= 3) {
+			alert("You've given an incorrect answer 3x. Going to next word.");
+			nextTerm();
+		}
 	}
 
 	$('input#def').focus().select();
@@ -162,7 +170,7 @@ $(function () {
 		nextTerm();
 	});
 
-	$('input#showAnswer').click(function () {
+	$('input#showAnswer').click(function() {
 		if ($(this).prop('checked') == true) {
 			$('input#defHint').val(window.currentDef);
 		}
@@ -172,5 +180,16 @@ $(function () {
 		}
 
 		$('input#def').focus().select();
+	});
+
+	$('button#startTestMode').click(function() {
+		randomizeLesson();
+
+		// This has to be after randomizeLesson()
+		window.testMode = true;
+		$(this).text('Test Mode is Active');
+
+		$('input#defHint').hide();
+		$('div#showAnswerBox').hide();
 	});
 });

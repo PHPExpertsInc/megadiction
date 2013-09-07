@@ -53,7 +53,7 @@ include 'views/_header.tpl.php';
 				<input type="text" id="defHint" class="typeOverBox" name="def" accesskey="d" />
 			</div>
 			<div id="showAnswerBox">
-				<input type="checkbox" id="showAnswer" accesskey="a"/> <label for="showAnswer">Show answer</label>
+				<input type="checkbox" id="showAnswer" accesskey="a"/> <label for="showAnswer">Show answer</label><br/>
 			</div>
 			<div id="correctAnswer">
 				<h4>Correct!</h4>
@@ -80,6 +80,9 @@ include 'views/_header.tpl.php';
 				   or <strong><a href="javascript: randomizeLesson();">randomize</a></strong> the current flash cards and play again.</p>
 			</div>
 		</div>
+	</div>
+	<div id="main" style="margin-top: 20px; padding: 10px 0;">
+		<div style="text-align: center"><button class="blue" style="background: #F73437; color: white" id="startTestMode">Start Test Mode</button></div>
 	</div>
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
 	<script src="js/flashcards.js"/>
