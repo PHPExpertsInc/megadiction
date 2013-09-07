@@ -1,0 +1,41 @@
+div#page-wrapper {
+	background: url('../images/abstract_0005.jpg') white;
+}
+
+div#main {
+	background: white;
+	width: 25em;
+	margin: 0 auto;
+	border: 2px solid #4933D6;
+	height: 100%;
+	position: relative; top: -1px; right: -1px; 
+}
+
+div#main #inner { margin: 20px; }
+
+#def { font-size: 150%; width: 100%; }
+div#correctAnswer, div#wrongAnswer { display: none; }
+span.accesskey { text-decoration: underline; }
+a span.accesskey { font-weight: bold; padding: 1px; }
+
+
+div#wonBox { display: none; background: #FEF5CA; border: 1px dotted grey; padding: 0 50px; }
+div#wonBox h2 { font-size: 120%; text-align: center; }
+div#wonBox p { text-align: center; }
+
+table.score { background: white; margin: 0 auto; }
+table.score th { text-align: left; padding-left: 20px; }
+table.score td { width: 7em; text-align: center; }
+table.score .correct { color: green; }
+table.score .wrong { color: red; }
+
+div#dedication { position: fixed; bottom: 0; left: 0; color: white; }
+
+ul.menu { margin: 0 auto; padding: 0; text-align: center; list-style: none; font-weight: bold; background: #4933D6; color: white; }
+ul.menu li { display: inline;  }
+ul.menu li + li::before { content: " | "; }
+ul.menu li a { background: #4933D6; padding: 10px 20px; color: white; }
+
+/* Override main.css */
+div#wide-content { border: none; background: transparent; }
+ul.menu li a:hover, ul.menu li.hover>a { background: transparent !important; text-decoration: underline; }

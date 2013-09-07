@@ -1,0 +1,23 @@
+
+#menu .active {
+	border: 1px solid #5C443E;
+}
+
+#search-text {
+	background: #7A192C url(images/search-icon-bg.png) no-repeat 270px 50%;
+	border: 1px solid #B93550;
+}
+
+
+.button-style {
+	clear: both;
+	float: left;
+}
+
+#slider .previous-button {
+	background: url(images/slidertron-left-button_ie6.png) no-repeat left top;
+}
+
+#slider .next-button {
+	background: url(images/slidertron-right-button_ie6.png) no-repeat left top;
+}
