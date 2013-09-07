@@ -13,7 +13,7 @@ div#main {
 
 div#main #inner { margin: 20px; }
 
-#def { font-size: 150%; width: 100%; }
+#def, #defHint { font-size: 150%; width: 100%; }
 div#correctAnswer, div#wrongAnswer { display: none; }
 span.accesskey { text-decoration: underline; }
 a span.accesskey { font-weight: bold; padding: 1px; }
@@ -39,3 +39,23 @@ ul.menu li a { background: #4933D6; padding: 10px 20px; color: white; }
 /* Override main.css */
 div#wide-content { border: none; background: transparent; }
 ul.menu li a:hover, ul.menu li.hover>a { background: transparent !important; text-decoration: underline; }
+
+.typeInBox {
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	top: 0;
+	height: 35px;
+	border: 1px solid green;
+	background-color: transparent;
+}
+
+.typeOverBox {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	height: 35px;
+	color: #ccc;
+}
+

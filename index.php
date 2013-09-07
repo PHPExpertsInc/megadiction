@@ -47,8 +47,9 @@ include 'views/_header.tpl.php';
 		<div id="inner">
 			<h3 id="listtitle">Flashcards: <span></span></h3>
 			<h2 id="term"></h2>
-			<div>
-				<input type="text" id="def" name="def" accesskey="d" />
+			<div style="position: relative; height: 35px">
+				<input type="text" id="def" class="typeInBox" name="def" accesskey="d" />
+				<input type="text" id="defHint" class="typeOverBox" name="def" accesskey="d" />
 			</div>
 			<div id="showAnswerBox">
 				<input type="checkbox" id="showAnswer" accesskey="a"/> <label for="showAnswer">Show answer</label>

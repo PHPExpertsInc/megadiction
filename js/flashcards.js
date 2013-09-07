@@ -42,7 +42,8 @@ function nextTerm() {
 	$('h2#term').html((window.termNo + 1) + ". " + flashcardList[window.currentSet][window.termNo].term);
 
 	if ($('div#def')) {
-		$('div#def').replaceWith('<input type="text" id="def"/>');
+		$('div#def').replaceWith('<input type="text" id="def" class="typeInBox"/>');
+		$('input#defHint').show();
 	}
 
 	$('input#def').focus().select();
@@ -72,6 +73,7 @@ function checkAnswer(answer) {
 		$('div#wrongAnswer').hide();
 		$('div#correctAnswer').show();
 		$('input#def').replaceWith('<div id="def">' + answer + '</div>');
+		$('input#defHint').hide().val('');
 		$('div#showAnswerBox').hide();
 		$('input#showAnswer').prop('checked', false);
 		$('button#next').show().focus();
@@ -158,8 +160,11 @@ $(function () {
 
 	$('input#showAnswer').click(function () {
 		if ($(this).prop('checked') == true) {
-			$('input#def').val('');
-			$('input#def').attr('placeholder', window.currentDef);
+			$('input#defHint').val(window.currentDef);
+		}
+		else
+		{
+			$('input#defHint').val('');
 		}
 
 		$('input#def').focus().select();
