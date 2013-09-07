@@ -8,7 +8,7 @@ var score = new Score();
 
 function setupList() {
 	window.termNo = 0;
-	$('h1#title span').html(flashcardList.title);
+	$('#listtitle span').html(flashcardList.title);
 	$('input#def').focus();
 
 	window.sets = [];

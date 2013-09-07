@@ -30,26 +30,22 @@ $listId = filter_input(INPUT_GET, 'listId', FILTER_VALIDATE_INT) ? filter_input(
 
 $list = $flashcardLists[$listId];
 
-echo "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?" . ">\n";
+$customCSS = array('css/flashcards.css');
+
+include 'views/_header.tpl.php';
+
 ?>
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-	<title>Megadiction</title>
-	<link rel="stylesheet" href="css/flashcards.css"/>
-	<script>
-		var flashcardList = <?php echo json_encode($list); ?>;
-	</script>
-	<script src="js/accesskeys.js"></script>
-</head>
-<body>
+<script>
+	var flashcardList = <?php echo json_encode($list); ?>;
+</script>
+
 	<div id="main">
 		<ul class="menu">
 			<li><a href=".">Vocab</a></li>
 			<li><a href="?list=multitables">Multiplication Tables</a></li>
 		</ul>
 		<div id="inner">
-			<h1 id="title">Flashcards: <span></span></h1>
+			<h3 id="listtitle">Flashcards: <span></span></h3>
 			<h2 id="term"></h2>
 			<div>
 				<input type="text" id="def" name="def" accesskey="d" />
@@ -59,7 +55,7 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?" . ">\n";
 			</div>
 			<div id="correctAnswer">
 				<h4>Correct!</h4>
-				<button id="next" accesskey="n">Next...</button>
+				<button class="red" style="font-weight: bold" id="next" accesskey="n">Next...</button>
 			</div>
 			<div id="wrongAnswer"><h4>Wrong! Try again.</h4></div>
 			<div id="wonBox">
@@ -84,7 +80,9 @@ echo "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\" ?" . ">\n";
 		</div>
 	</div>
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
-	<script src="js/jquery-1.8.3.min.js"/>
 	<script src="js/flashcards.js"/>
-</body>
-</html>
+	<script src="js/accesskeys.js"/>
+
+<?php
+include 'views/_footer.tpl.php';
+
