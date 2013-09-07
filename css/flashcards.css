@@ -1,4 +1,7 @@
-div#page-wrapper { background: url('../images/abstract_0005.jpg') white; }
+div#page-wrapper {
+	background: url('../images/abstract_0005.jpg') white;
+}
+
 div#main {
 	background: white;
 	width: 25em;
@@ -7,6 +10,7 @@ div#main {
 	height: 100%;
 	position: relative; top: -1px; right: -1px; 
 }
+
 div#main #inner { margin: 20px; }
 
 #def { font-size: 150%; width: 100%; }

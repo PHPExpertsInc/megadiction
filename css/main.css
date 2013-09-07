@@ -29,7 +29,7 @@ div#mylink a, div#mylink a:visited { text-decoration: none; color: white; }
 div#mylink:hover { background: #D31B17; }
 
 #logo h1 span#slogan {
-    display: block;
+    display: hidden;
     position: relative; top: -1.5em; left: 14em; font-size: 0.55em;
 }
 
