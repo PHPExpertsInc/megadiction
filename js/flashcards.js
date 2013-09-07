@@ -136,7 +136,12 @@ function randomizeLesson() {
 	nextTerm();
 }
 
+$(window).resize(function() {
+	$('div#page-wrapper').height($(window).height() - $('div#page-wrapper').offset().top);
+});
+
 $(function () {
+	$(window).trigger('resize');
 	setupList();
 	nextTerm();
 
