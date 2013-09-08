@@ -39,7 +39,7 @@ include 'views/_header.tpl.php';
 	var flashcardList = <?php echo json_encode($list); ?>;
 </script>
 
-	<div id="main">
+	<div class="contentBox">
 		<ul class="menu">
 			<li><a href=".">Vocab</a></li>
 			<li><a href="?list=addition">Addition Tables</a></li>
@@ -81,8 +81,14 @@ include 'views/_header.tpl.php';
 			</div>
 		</div>
 	</div>
-	<div id="main" style="margin-top: 20px; padding: 10px 0;">
+	<div class="contentBox">
 		<div style="text-align: center"><button class="blue" style="background: #F73437; color: white" id="startTestMode">Start Test Mode</button></div>
+	</div>
+	<div class="contentBox" id="todoBox">
+		<div id="inner">
+			<h4>TODO List</h4>
+			<?php include '_todo.php'; ?>
+		</div>
 	</div>
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
 	<script src="js/flashcards.js"/>
