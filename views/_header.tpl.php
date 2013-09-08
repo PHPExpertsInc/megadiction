@@ -12,7 +12,7 @@ if (empty($meta)) {
 	$meta = new Meta();
 }
 
-if (empty($meta->title)) { $meta->title = 'PHP University'; }
+if (empty($meta->title)) { $meta->title = 'Megadiction | PHP University'; }
 ?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -38,11 +38,11 @@ if (!empty($customCSS)) {
         <script type="text/javascript" src="js/kickstart.js"></script>                                  <!-- KICKSTART -->
         <script src="js/jquery-1.8.3.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
-        <meta name="description" content="Federal Income Tax Calculator 2012 2013: Fiscal cliff tax calculator"/>
+        <meta name="description" content="Megadiction: : Virtual Flashcards that work. Improve your vocabulary, among other things."/>
         <meta property="og:image" content="<?php echo $meta->image; ?>"/>
         <meta property="og:title" content="<?php echo $meta->title; ?>"/>
         <meta property="og:type" content="website"/>
-        <meta property="og:url" content="http://www.phpu.cc/taxes/individual/"/>
+        <meta property="og:url" content="http://www.phpu.cc/megadiction/"/>
         <script type="text/javascript" src="js/external.js"></script>
 <?php if (!empty($customHeader)) { echo $customHeader; } ?>
     </head>
@@ -77,7 +77,7 @@ if (!empty($customCSS)) {
 		</ul>
 	</div>
 	<div id="pageHeader" class="container">
-        <h2 class="title">Federal Personal Income Tax (Fiscal Cliff) Calculator</h2>
+        <h2 class="title">Megadiction: Virtual Flashcards that work.</h2>
 	</div>
 </div>
 <div id="page-wrapper">
