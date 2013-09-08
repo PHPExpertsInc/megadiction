@@ -11,7 +11,7 @@
 
 <ol class="todoList">
 	<li class="done"><strong>Feature:</strong> Add in a TODO list.</li>
-	<li><strong>Defect:</strong> The background resizing causes controls to be cut off in small windows.</li>
+	<li class="done"><strong>Defect:</strong> The background resizing causes controls to be cut off in small windows.</li>
 	<li><strong>Feature:</strong> Add "remember show answer" functionality.</li>
 	<li><strong>Feature:</strong> Add a progress bar.</li>
 	<li><strong>Refactor:</strong> Organize the categories into a pretty dropdown.</li>

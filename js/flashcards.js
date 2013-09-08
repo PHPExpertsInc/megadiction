@@ -112,7 +112,7 @@ function shuffle(array) {
 	while (m) {
 
 		// Pick a remaining element…
-		i = Math.floor(Math.random() * m--);
+  		i = Math.floor(Math.random() * m--);
 
 		// And swap it with the current element.
 		t = array[m];
@@ -144,14 +144,15 @@ function randomizeLesson() {
 	}
 */
 	window.currentSet = 'random';
-
 	switchToNextListSet();
-
 	nextTerm();
 }
 
 $(window).resize(function() {
-	$('div#page-wrapper').height($(window).height() - $('div#page-wrapper').offset().top);
+	var scrollHeight = $('div#page-wrapper').get(0).scrollHeight;
+	var newHeight = $(window).height() - $('div#page-wrapper').offset().top;
+	if (newHeight < scrollHeight - 20) { newHeight = scrollHeight - 20; }
+	$('div#page-wrapper').height(newHeight);
 });
 
 $(function () {
