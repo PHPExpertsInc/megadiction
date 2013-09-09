@@ -48,7 +48,13 @@ function nextTerm() {
 
 	if ($('div#def')) {
 		$('div#def').replaceWith('<input type="text" id="def" class="typeInBox"/>');
+
+		if ($('input#showAnswer').prop('checked') == true) {
+			$('input#defHint').val(window.currentDef);
+		}
+
 		$('input#defHint').show();
+
 	}
 
 	$('input#def').focus().select();
@@ -80,7 +86,11 @@ function checkAnswer(answer) {
 		$('input#def').replaceWith('<div id="def">' + answer + '</div>');
 		$('input#defHint').hide().val('');
 		$('div#showAnswerBox').hide();
-		$('input#showAnswer').prop('checked', false);
+
+		if ($('input#alwaysShowHint').prop('checked') === false) {
+			$('input#showAnswer').prop('checked', false);
+		}
+
 		$('button#next').show().focus();
 		++window.termNo;
 
@@ -148,6 +158,20 @@ function randomizeLesson() {
 	nextTerm();
 }
 
+$('input#alwaysShowHint').click(function() {
+	var showAnswer = $('input#showAnswer');
+	if ($(this).prop('checked') == true) {
+		showAnswer.prop('checked', true);
+		$('input#defHint').val(window.currentDef);
+		showAnswer.attr('disabled', true);
+	}
+	else {
+		showAnswer.removeAttr('disabled');
+	}
+
+	$('input#def').focus();
+});
+
 $(window).resize(function() {
 	var scrollHeight = $('div#page-wrapper').get(0).scrollHeight;
 	var newHeight = $(window).height() - $('div#page-wrapper').offset().top;
@@ -174,9 +198,7 @@ $(function () {
 	$('input#showAnswer').click(function() {
 		if ($(this).prop('checked') == true) {
 			$('input#defHint').val(window.currentDef);
-		}
-		else
-		{
+		} else {
 			$('input#defHint').val('');
 		}
 

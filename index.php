@@ -53,7 +53,8 @@ include 'views/_header.tpl.php';
 				<input type="text" id="defHint" class="typeOverBox" name="def" accesskey="d" />
 			</div>
 			<div id="showAnswerBox">
-				<input type="checkbox" id="showAnswer" accesskey="a"/> <label for="showAnswer">Show answer</label><br/>
+				<input type="checkbox" id="showAnswer" accesskey="s"/> <label for="showAnswer">Show answer</label>
+				<input type="checkbox" id="alwaysShowHint" accesskey="a"/> <label for="alwaysShowHint">Always show answer</label>
 			</div>
 			<div id="correctAnswer">
 				<h4>Correct!</h4>
