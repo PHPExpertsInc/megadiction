@@ -8,7 +8,7 @@ var score = new Score();
 
 function setupList() {
 	window.testMode = false;
-	window.termNo = 0;
+	window.termNo = -1;
 	window.questionNo = 0;
 	$('#listtitle span#title663').html(flashcardList.title + ' | ');
 	$('input#def').focus();
@@ -35,11 +35,16 @@ function showVictoryBox() {
 }
 
 function nextTerm() {
+	++window.termNo;
+	switchToNextListSet();
+
 	window.guessNo = 0;
 	++window.questionNo;
 	$('div#correctAnswer').hide();
 	$('div#wrongAnswer').hide();
-	$('div#showAnswerBox').show();
+	if (window.testMode === false) {
+		$('div#showAnswerBox').show();
+	}
 
 	window.currentDef = flashcardList[window.currentSet][window.termNo].def;
 
@@ -49,7 +54,7 @@ function nextTerm() {
 	if ($('div#def')) {
 		$('div#def').replaceWith('<input type="text" id="def" class="typeInBox"/>');
 
-		if ($('input#showAnswer').prop('checked') == true) {
+		if (window.testMode === false && $('input#showAnswer').prop('checked') == true) {
 			$('input#defHint').val(window.currentDef);
 		}
 
@@ -64,13 +69,6 @@ function switchToNextListSet() {
 	if (flashcardList[window.currentSet][window.termNo] === undefined) {
 		window.termNo = 0;
 		window.currentSet = window.sets.shift();
-
-		if (window.currentSet === undefined) {
-			$('button#next').hide();
-			$('button#next').blur();
-
-			showVictoryBox();
-		}
 	}
 }
 
@@ -92,9 +90,14 @@ function checkAnswer(answer) {
 		}
 
 		$('button#next').show().focus();
-		++window.termNo;
 
-		switchToNextListSet();
+		if (window.sets.length === 0 && window.termNo == flashcardList[window.currentSet].length - 1) {
+			$('button#next').blur();
+			$('button#next').hide();
+
+			showVictoryBox();
+		}
+
 	} else {
 		++window.guessNo;
 		++score.wrong;
@@ -138,6 +141,7 @@ function randomizeLesson() {
 	score = new Score();
 	setupList();
 
+
 	flashcardList.random = [];
 	var superArray = [];
 	for (var i = 0; i < window.origSets.length; ++i) {
@@ -147,14 +151,21 @@ function randomizeLesson() {
 	}
 
 	flashcardList.random = shuffle(superArray);
-/*	alert('hmm ' + flashcardList.random);
 
+	/*
 	for (var i = 0; i < flashcardList.random.length; ++i) {
 		alert("term: " + flashcardList.random[i].term);
 	}
-*/
+
+	window.termNo = -1;
+	window.sets = ['random'];
+	*/
+
+	window.sets = [];
 	window.currentSet = 'random';
-	switchToNextListSet();
+	window.termNo = -1;
+
+	//switchToNextListSet();
 	nextTerm();
 }
 
