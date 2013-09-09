@@ -16,7 +16,7 @@ div.contentBox {
 div.contentBox #inner { margin: 20px; }
 
 ul.menu { margin-top: -10px;padding: 0; text-align: center; list-style: none; font-weight: bold; background: #4933D6; color: white; }
-ul.menu li { display: inline;  }
+ul.menu li { display: inline; }
 ul.menu li + li::before { content: " | "; }
 ul.menu li a { background: #4933D6; padding: 10px 20px; color: white; }
 
@@ -59,6 +59,9 @@ ul.menu li a:hover, ul.menu li.hover>a { background: transparent !important; tex
 	height: 35px;
 	color: #999;
 }
+
+input.wrongAnswer { border: 2px solid #FF2E2E !important; }
+img.wrongAnswer { position: relative; top: -45px; left: 100%; padding: 0; margin-left: -20px; z-index: 3; float: left; }
 
 div#todoBox { height: 250px; overflow-y: auto; }
 

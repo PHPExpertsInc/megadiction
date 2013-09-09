@@ -56,6 +56,7 @@ include 'views/_header.tpl.php';
 				<input type="checkbox" id="showAnswer" accesskey="s"/> <label for="showAnswer">Show answer</label>
 				<input type="checkbox" id="alwaysShowHint" accesskey="a"/> <label for="alwaysShowHint">Always show answer</label>
 			</div>
+			<img class="wrongAnswer" style="display: none" src="images/exclaim.png"/>
 			<div id="correctAnswer">
 				<h4>Correct!</h4>
 				<button class="red" style="font-weight: bold" id="next" accesskey="n">Next...</button>

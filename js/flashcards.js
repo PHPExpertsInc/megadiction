@@ -40,6 +40,8 @@ function nextTerm() {
 
 	window.guessNo = 0;
 	++window.questionNo;
+	$('input#def').val('').removeClass('wrongAnswer');
+	$('img.wrongAnswer').hide();
 	$('div#correctAnswer').hide();
 	$('div#wrongAnswer').hide();
 	if (window.testMode === false) {
@@ -199,6 +201,20 @@ $(function () {
 		if (e.keyCode == 13) {
 
 			checkAnswer($(this).val());
+		}
+	});
+	$('body').on('keyup	', 'input#def', function(e) {
+		if (window.testMode === true) { return; }
+		var typedText = $(this).val();
+
+		if (typedText !== '' && window.currentDef.indexOf(typedText) !== 0)
+		{
+			$(this).addClass('wrongAnswer');
+			$('img.wrongAnswer').show();
+		} else
+		{
+			$(this).removeClass('wrongAnswer');
+			$('img.wrongAnswer').hide();
 		}
 	});
 
