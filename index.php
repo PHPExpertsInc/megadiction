@@ -1,32 +1,5 @@
 <?php
 header('Content-Type: application/xhtml+xml');
-/*
-$flashcardList = isset($_GET['list']) ? filter_input(INPUT_GET, 'list', FILTER_SANITIZE_STRING) : 'vocab';
-if (preg_match('/(\.\.|\/)/', $flashcardList) === 1)
-{
-	throw new RuntimeException("Invalid list.");
-}
-
-$flashcardFile = "$flashcardList.json";
-if (!file_exists($flashcardFile))
-{
-	throw new RuntimeException("Could not find the flashcard file.");
-}
-
-if (!($flashcardTXT = file_get_contents($flashcardFile)))
-{
-	throw new RuntimeException("Could not read $flashcardFile.");
-}
-if (!($flashcardLists = json_decode($flashcardTXT)))
-{
-	throw new RuntimeException("Could not parse $flashcardFile.");
-}
-*/
-//header('content-type: text/plain');
-//print_r($flashcardList);
-
-
-//$lesson = filter_input(INPUT_GET, 'lesson', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'lesson', FILTER_SANITIZE_NUMBER_INT) : 0;
 
 $customCSS = array('css/flashcards.css');
 
@@ -34,20 +7,11 @@ include 'views/_header.tpl.php';
 
 ?>
 
-<script>
-var data;
-var flashcardList;
-$.getJSON('vocab.json', function(data_in) {
-	flashcardList = data_in[0];
-	//alert(data_in[0].title);
-});
-</script>
-
 	<div class="contentBox">
 		<ul class="menu">
 			<li><a href=".">Vocab</a></li>
-			<li><a href="?list=addition">Addition Tables</a></li>
-			<li><a href="?list=multitables">Multiplication Tables</a></li>
+			<li><a href="addition">Addition Tables</a></li>
+			<li><a href="multitables">Multiplication Tables</a></li>
 		</ul>
 		<div id="inner">
 			<h3 id="listtitle"><span id="title663"></span> Question #<span id="qNo"></span></h3>
@@ -82,7 +46,7 @@ $.getJSON('vocab.json', function(data_in) {
 						<td class="wrong"></td>
 					</tr>
 				</table>
-				<p>Go to the <a href="?listId=<?php echo ($lesson + 1); ?>"><strong>next lesson</strong></a>, <br/>
+				<p>Go to the <a id="nextLessonLink" href="#"><strong>next lesson</strong></a>, <br/>
 				   or <strong><a href="javascript: randomizeLesson();">randomize</a></strong> the current flash cards and play again.</p>
 			</div>
 		</div>
@@ -97,6 +61,7 @@ $.getJSON('vocab.json', function(data_in) {
 		</div>
 	</div>
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
+	<script src="js/jquery.address-1.5.min.js"/>
 	<script src="js/flashcards.js"/>
 	<script src="js/accesskeys.js"/>
 <?php

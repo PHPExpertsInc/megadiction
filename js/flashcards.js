@@ -1,3 +1,38 @@
+/****  BEGIN NAVIGATION CODE  *****/
+
+var flashcardList = [];
+var subject = '';
+var listId = 1;
+
+$.address.change(function(e) {
+	var file = '';
+	if (e.pathNames[0] === undefined) {
+		subject = 'vocab';
+		file = 'vocab.json';
+	}
+	else {
+		subject = e.pathNames[0];
+		file = e.pathNames[0] + '.json';
+	}
+
+	if (e.pathNames[1] === undefined) {
+		listId = 1;
+	} else {
+		listId = e.pathNames[1];
+	}
+
+	$.getJSON(file, function(data_in) {
+		//alert(JSON.stringify(data_in, null, 2));
+		flashcardList = data_in[listId - 1];
+		//alert(data_in[0].title);
+
+		setupList();
+		nextTerm();
+	});
+});
+
+/****  END NAVIGATION CODE  *****/
+
 function Score() {
 	this.guesses = 0;
 	this.correct = 0;
@@ -26,6 +61,8 @@ function setupList() {
 
 function showVictoryBox() {
 	var wonBox = $('div#wonBox');
+
+	wonBox.find('a#nextLessonLink').attr('href', '#!/' + subject + '/' + (listId + 1));
 
 	wonBox.find('.guesses').html(score.guesses);
 	wonBox.find('.correct').html(score.correct + ' (' + ((score.correct / score.guesses) * 100).toFixed(1) + ')');
@@ -240,8 +277,13 @@ $('button#startTestMode').click(function() {
 
 
 $(function () {
+	$.address.crawlable(true);
+	//alert($.address.crawlable());
 	$(window).trigger('resize');
-	setupList();
-	nextTerm();
+	//$.address.parameter('q', 'val');
+	newHash = window.location.hash.substring(1);
 
+	$('ul.menu li a').address();
+	//window.location.hash = '';
+	//alert($.address.state('stateBasePath'));
 });
