@@ -18,6 +18,7 @@ if (empty($meta->title)) { $meta->title = 'Megadiction | PHP University'; }
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8"/>
+		<meta name="fragment" content="!"/>
         <title><?php echo $meta->title; ?> | PHP University</title>
         <link href="css/default.css" rel="stylesheet" type="text/css" media="all" />
 	    <link href="css/main.css" rel="stylesheet" type="text/css" media="all" />

@@ -1,3 +1,53 @@
+/****  BEGIN NAVIGATION CODE  *****/
+
+var flashcardList = [];
+var subject = '';
+var listId = 1;
+
+$.address.change(function(e) {
+	var file = '';
+	var listJumpBox;
+	if (e.pathNames[0] === undefined) {
+		subject = 'vocab';
+		file = 'vocab.json';
+	}
+	else {
+		subject = e.pathNames[0];
+		file = e.pathNames[0] + '.json';
+	}
+
+	if (e.pathNames[1] === undefined) {
+		listId = 1;
+	} else {
+		listId = e.pathNames[1];
+	}
+
+	$.getJSON(file, function(data_in) {
+		//alert(JSON.stringify(data_in, null, 2));
+		flashcardList = data_in[listId - 1];
+		//alert(data_in[0].title);
+
+		listJumpBox = $('select#listJumpBox');
+		listJumpBox.html('');
+
+		for (var a = 1; a <= data_in.length; ++a) {
+		//	alert(a);
+			if (a == listId)
+			{
+				listJumpBox.prepend('<option value="' + a + '" selected="selected">' + a + '</option>')
+			} else {
+				listJumpBox.append('<option value="' + a + '">' + a + '</option>')
+			}
+
+		}
+
+		setupList();
+		nextTerm();
+	});
+});
+
+/****  END NAVIGATION CODE  *****/
+
 function Score() {
 	this.guesses = 0;
 	this.correct = 0;
@@ -22,10 +72,14 @@ function setupList() {
 
 	window.origSets = window.sets.slice(0);  // Use array.slice(0) to clone an array.
 	window.currentSet = window.sets.shift();
+	$('div#jumpListBox').show();
 }
 
 function showVictoryBox() {
 	var wonBox = $('div#wonBox');
+	var nextListId = +listId + 1;
+
+	wonBox.find('a#nextLessonLink').attr('href', '#!/' + subject + '/' + nextListId);
 
 	wonBox.find('.guesses').html(score.guesses);
 	wonBox.find('.correct').html(score.correct + ' (' + ((score.correct / score.guesses) * 100).toFixed(1) + ')');
@@ -171,6 +225,17 @@ function randomizeLesson() {
 	nextTerm();
 }
 
+function startTestMode() {
+	randomizeLesson();
+
+	// This has to be after randomizeLesson()
+	window.testMode = true;
+
+	$('input#defHint').hide();
+	$('div#showAnswerBox').hide();
+	$('div#jumpListBox').hide();
+}
+
 $('input#alwaysShowHint').click(function() {
 	var showAnswer = $('input#showAnswer');
 	if ($(this).prop('checked') == true) {
@@ -192,54 +257,61 @@ $(window).resize(function() {
 	$('div#page-wrapper').height(newHeight);
 });
 
-$(function () {
-	$(window).trigger('resize');
-	setupList();
+$('body').on('keypress', 'input#def', function(e) {
+	if (e.keyCode == 13) {
+
+		checkAnswer($(this).val());
+	}
+});
+$('body').on('keyup	', 'input#def', function(e) {
+	if (window.testMode === true) { return; }
+	var typedText = $(this).val();
+
+	if (typedText !== '' && window.currentDef.indexOf(typedText) !== 0)
+	{
+		$(this).addClass('wrongAnswer');
+		$('img.wrongAnswer').show();
+	} else
+	{
+		$(this).removeClass('wrongAnswer');
+		$('img.wrongAnswer').hide();
+	}
+});
+
+$('button#next').click(function () {
 	nextTerm();
+});
 
-	$('body').on('keypress', 'input#def', function(e) {
-		if (e.keyCode == 13) {
+$('input#showAnswer').click(function() {
+	if ($(this).prop('checked') == true) {
+		$('input#defHint').val(window.currentDef);
+	} else {
+		$('input#defHint').val('');
+	}
 
-			checkAnswer($(this).val());
-		}
-	});
-	$('body').on('keyup	', 'input#def', function(e) {
-		if (window.testMode === true) { return; }
-		var typedText = $(this).val();
+	$('input#def').focus().select();
+});
 
-		if (typedText !== '' && window.currentDef.indexOf(typedText) !== 0)
-		{
-			$(this).addClass('wrongAnswer');
-			$('img.wrongAnswer').show();
-		} else
-		{
-			$(this).removeClass('wrongAnswer');
-			$('img.wrongAnswer').hide();
-		}
-	});
+$('button#startTestMode').click(function() {
+	startTestMode();
+	$(this).text('Test Mode is Active');
+});
 
-	$('button#next').click(function () {
-		nextTerm();
-	});
+$('select#listJumpBox').change(function(e) {
+	//alert(a);
+	$.address.value(subject + '/' + $(this).val())
 
-	$('input#showAnswer').click(function() {
-		if ($(this).prop('checked') == true) {
-			$('input#defHint').val(window.currentDef);
-		} else {
-			$('input#defHint').val('');
-		}
+});
 
-		$('input#def').focus().select();
-	});
 
-	$('button#startTestMode').click(function() {
-		randomizeLesson();
+$(function () {
+	$.address.crawlable(true);
+	//alert($.address.crawlable());
+	$(window).trigger('resize');
+	//$.address.parameter('q', 'val');
+	newHash = window.location.hash.substring(1);
 
-		// This has to be after randomizeLesson()
-		window.testMode = true;
-		$(this).text('Test Mode is Active');
-
-		$('input#defHint').hide();
-		$('div#showAnswerBox').hide();
-	});
+	$('ul.menu li a').address();
+	//window.location.hash = '';
+	//alert($.address.state('stateBasePath'));
 });

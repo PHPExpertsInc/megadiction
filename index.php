@@ -1,51 +1,23 @@
 <?php
 header('Content-Type: application/xhtml+xml');
 
-$flashcardList = isset($_GET['list']) ? filter_input(INPUT_GET, 'list', FILTER_SANITIZE_STRING) : 'vocab';
-if (preg_match('/(\.\.|\/)/', $flashcardList) === 1)
-{
-	throw new RuntimeException("Invalid list.");
-}
-
-$flashcardFile = "$flashcardList.json";
-if (!file_exists($flashcardFile))
-{
-	throw new RuntimeException("Could not find the flashcard file.");
-}
-
-if (!($flashcardTXT = file_get_contents($flashcardFile)))
-{
-	throw new RuntimeException("Could not read $flashcardFile.");
-}
-if (!($flashcardLists = json_decode($flashcardTXT)))
-{
-	throw new RuntimeException("Could not parse $flashcardFile.");
-}
-
-//header('content-type: text/plain');
-//print_r($flashcardList);
-
-
-$listId = filter_input(INPUT_GET, 'listId', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'listId', FILTER_SANITIZE_NUMBER_INT) : 0;
-
-$list = $flashcardLists[$listId];
-
 $customCSS = array('css/flashcards.css');
 
 include 'views/_header.tpl.php';
 
 ?>
-<script>
-	var flashcardList = <?php echo json_encode($list); ?>;
-</script>
 
 	<div class="contentBox">
 		<ul class="menu">
 			<li><a href=".">Vocab</a></li>
-			<li><a href="?list=addition">Addition Tables</a></li>
-			<li><a href="?list=multitables">Multiplication Tables</a></li>
+			<li><a href="#!/addition">Addition Tables</a></li>
+			<li><a href="#!/multitables">Multiplication Tables</a></li>
 		</ul>
 		<div id="inner">
+			<div id="jumpListBox">Jump to a List
+				<select id="listJumpBox">
+				</select>
+			</div>
 			<h3 id="listtitle"><span id="title663"></span> Question #<span id="qNo"></span></h3>
 			<h2 id="term"></h2>
 			<div style="position: relative; height: 35px">
@@ -78,7 +50,7 @@ include 'views/_header.tpl.php';
 						<td class="wrong"></td>
 					</tr>
 				</table>
-				<p>Go to the <a href="?listId=<?php echo ($listId + 1); ?>"><strong>next lesson</strong></a>, <br/>
+				<p>Go to the <a id="nextLessonLink" href="#"><strong>next lesson</strong></a>, <br/>
 				   or <strong><a href="javascript: randomizeLesson();">randomize</a></strong> the current flash cards and play again.</p>
 			</div>
 		</div>
@@ -93,6 +65,7 @@ include 'views/_header.tpl.php';
 		</div>
 	</div>
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
+	<script src="js/jquery.address-1.5.min.js"/>
 	<script src="js/flashcards.js"/>
 	<script src="js/accesskeys.js"/>
 <?php
