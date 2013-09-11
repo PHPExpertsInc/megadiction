@@ -10,10 +10,14 @@ include 'views/_header.tpl.php';
 	<div class="contentBox">
 		<ul class="menu">
 			<li><a href=".">Vocab</a></li>
-			<li><a href="addition">Addition Tables</a></li>
-			<li><a href="multitables">Multiplication Tables</a></li>
+			<li><a href="#!/addition">Addition Tables</a></li>
+			<li><a href="#!/multitables">Multiplication Tables</a></li>
 		</ul>
 		<div id="inner">
+			<div id="jumpListBox">Jump to a List
+				<select id="listJumpBox">
+				</select>
+			</div>
 			<h3 id="listtitle"><span id="title663"></span> Question #<span id="qNo"></span></h3>
 			<h2 id="term"></h2>
 			<div style="position: relative; height: 35px">

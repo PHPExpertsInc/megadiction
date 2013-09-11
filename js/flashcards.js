@@ -6,6 +6,7 @@ var listId = 1;
 
 $.address.change(function(e) {
 	var file = '';
+	var listJumpBox;
 	if (e.pathNames[0] === undefined) {
 		subject = 'vocab';
 		file = 'vocab.json';
@@ -25,6 +26,20 @@ $.address.change(function(e) {
 		//alert(JSON.stringify(data_in, null, 2));
 		flashcardList = data_in[listId - 1];
 		//alert(data_in[0].title);
+
+		listJumpBox = $('select#listJumpBox');
+		listJumpBox.html('');
+
+		for (var a = 1; a <= data_in.length; ++a) {
+		//	alert(a);
+			if (a == listId)
+			{
+				listJumpBox.prepend('<option value="' + a + '" selected="selected">' + a + '</option>')
+			} else {
+				listJumpBox.append('<option value="' + a + '">' + a + '</option>')
+			}
+
+		}
 
 		setupList();
 		nextTerm();
@@ -57,12 +72,14 @@ function setupList() {
 
 	window.origSets = window.sets.slice(0);  // Use array.slice(0) to clone an array.
 	window.currentSet = window.sets.shift();
+	$('div#jumpListBox').show();
 }
 
 function showVictoryBox() {
 	var wonBox = $('div#wonBox');
+	var nextListId = +listId + 1;
 
-	wonBox.find('a#nextLessonLink').attr('href', '#!/' + subject + '/' + (listId + 1));
+	wonBox.find('a#nextLessonLink').attr('href', '#!/' + subject + '/' + nextListId);
 
 	wonBox.find('.guesses').html(score.guesses);
 	wonBox.find('.correct').html(score.correct + ' (' + ((score.correct / score.guesses) * 100).toFixed(1) + ')');
@@ -208,6 +225,17 @@ function randomizeLesson() {
 	nextTerm();
 }
 
+function startTestMode() {
+	randomizeLesson();
+
+	// This has to be after randomizeLesson()
+	window.testMode = true;
+
+	$('input#defHint').hide();
+	$('div#showAnswerBox').hide();
+	$('div#jumpListBox').hide();
+}
+
 $('input#alwaysShowHint').click(function() {
 	var showAnswer = $('input#showAnswer');
 	if ($(this).prop('checked') == true) {
@@ -265,14 +293,14 @@ $('input#showAnswer').click(function() {
 });
 
 $('button#startTestMode').click(function() {
-	randomizeLesson();
-
-	// This has to be after randomizeLesson()
-	window.testMode = true;
+	startTestMode();
 	$(this).text('Test Mode is Active');
+});
 
-	$('input#defHint').hide();
-	$('div#showAnswerBox').hide();
+$('select#listJumpBox').change(function(e) {
+	//alert(a);
+	$.address.value(subject + '/' + $(this).val())
+
 });
 
 
