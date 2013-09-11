@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: application/xhtml+xml');
-
+/*
 $flashcardList = isset($_GET['list']) ? filter_input(INPUT_GET, 'list', FILTER_SANITIZE_STRING) : 'vocab';
 if (preg_match('/(\.\.|\/)/', $flashcardList) === 1)
 {
@@ -21,22 +21,26 @@ if (!($flashcardLists = json_decode($flashcardTXT)))
 {
 	throw new RuntimeException("Could not parse $flashcardFile.");
 }
-
+*/
 //header('content-type: text/plain');
 //print_r($flashcardList);
 
 
-$listId = filter_input(INPUT_GET, 'listId', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'listId', FILTER_SANITIZE_NUMBER_INT) : 0;
-
-$list = $flashcardLists[$listId];
+//$lesson = filter_input(INPUT_GET, 'lesson', FILTER_VALIDATE_INT) ? filter_input(INPUT_GET, 'lesson', FILTER_SANITIZE_NUMBER_INT) : 0;
 
 $customCSS = array('css/flashcards.css');
 
 include 'views/_header.tpl.php';
 
 ?>
+
 <script>
-	var flashcardList = <?php echo json_encode($list); ?>;
+var data;
+var flashcardList;
+$.getJSON('vocab.json', function(data_in) {
+	flashcardList = data_in[0];
+	//alert(data_in[0].title);
+});
 </script>
 
 	<div class="contentBox">
@@ -78,7 +82,7 @@ include 'views/_header.tpl.php';
 						<td class="wrong"></td>
 					</tr>
 				</table>
-				<p>Go to the <a href="?listId=<?php echo ($listId + 1); ?>"><strong>next lesson</strong></a>, <br/>
+				<p>Go to the <a href="?listId=<?php echo ($lesson + 1); ?>"><strong>next lesson</strong></a>, <br/>
 				   or <strong><a href="javascript: randomizeLesson();">randomize</a></strong> the current flash cards and play again.</p>
 			</div>
 		</div>

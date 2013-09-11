@@ -14,6 +14,7 @@
 	<li class="done"><strong>Defect:</strong> The background resizing causes controls to be cut off in small windows.</li>
 	<li class="done"><strong>Feature:</strong> Add "remember show answer" functionality.</li>
 	<li class="done"><strong>Feature:</strong> Highlight the answerbox on [in]correct answer, in training mode.</li>
+	<li><strong>Feature:</strong> Select any lesson.</li>
 	<li><strong>Feature:</strong> Add a progress bar.</li>
 	<li><strong>Refactor:</strong> Organize the categories into a pretty dropdown.</li>
 	<li><strong>Defect:</strong> The scorebox never disappears when starting a new round/lesson.</li>
