@@ -192,54 +192,56 @@ $(window).resize(function() {
 	$('div#page-wrapper').height(newHeight);
 });
 
+$('body').on('keypress', 'input#def', function(e) {
+	if (e.keyCode == 13) {
+
+		checkAnswer($(this).val());
+	}
+});
+$('body').on('keyup	', 'input#def', function(e) {
+	if (window.testMode === true) { return; }
+	var typedText = $(this).val();
+
+	if (typedText !== '' && window.currentDef.indexOf(typedText) !== 0)
+	{
+		$(this).addClass('wrongAnswer');
+		$('img.wrongAnswer').show();
+	} else
+	{
+		$(this).removeClass('wrongAnswer');
+		$('img.wrongAnswer').hide();
+	}
+});
+
+$('button#next').click(function () {
+	nextTerm();
+});
+
+$('input#showAnswer').click(function() {
+	if ($(this).prop('checked') == true) {
+		$('input#defHint').val(window.currentDef);
+	} else {
+		$('input#defHint').val('');
+	}
+
+	$('input#def').focus().select();
+});
+
+$('button#startTestMode').click(function() {
+	randomizeLesson();
+
+	// This has to be after randomizeLesson()
+	window.testMode = true;
+	$(this).text('Test Mode is Active');
+
+	$('input#defHint').hide();
+	$('div#showAnswerBox').hide();
+});
+
+
 $(function () {
 	$(window).trigger('resize');
 	setupList();
 	nextTerm();
 
-	$('body').on('keypress', 'input#def', function(e) {
-		if (e.keyCode == 13) {
-
-			checkAnswer($(this).val());
-		}
-	});
-	$('body').on('keyup	', 'input#def', function(e) {
-		if (window.testMode === true) { return; }
-		var typedText = $(this).val();
-
-		if (typedText !== '' && window.currentDef.indexOf(typedText) !== 0)
-		{
-			$(this).addClass('wrongAnswer');
-			$('img.wrongAnswer').show();
-		} else
-		{
-			$(this).removeClass('wrongAnswer');
-			$('img.wrongAnswer').hide();
-		}
-	});
-
-	$('button#next').click(function () {
-		nextTerm();
-	});
-
-	$('input#showAnswer').click(function() {
-		if ($(this).prop('checked') == true) {
-			$('input#defHint').val(window.currentDef);
-		} else {
-			$('input#defHint').val('');
-		}
-
-		$('input#def').focus().select();
-	});
-
-	$('button#startTestMode').click(function() {
-		randomizeLesson();
-
-		// This has to be after randomizeLesson()
-		window.testMode = true;
-		$(this).text('Test Mode is Active');
-
-		$('input#defHint').hide();
-		$('div#showAnswerBox').hide();
-	});
 });
