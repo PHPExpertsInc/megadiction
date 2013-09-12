@@ -49,7 +49,7 @@ $.address.change(function(e) {
 /****  END NAVIGATION CODE  *****/
 
 function Score() {
-	this.guesses = 0;
+	this.terms = 0;
 	this.correct = 0;
 	this.wrong = 0;
 }
@@ -83,9 +83,9 @@ function showVictoryBox() {
 
 	wonBox.find('a#nextLessonLink').attr('href', '#!/' + subject + '/' + nextListId);
 
-	wonBox.find('.guesses').html(score.guesses);
-	wonBox.find('.correct').html(score.correct + ' (' + ((score.correct / score.guesses) * 100).toFixed(1) + ')');
-	wonBox.find('.wrong').html(score.wrong + ' (' + ((score.wrong / score.guesses) * 100).toFixed(1) + ')');
+	wonBox.find('.terms').html(score.terms);
+	wonBox.find('.correct').html(score.correct + ' (' + ((score.correct / score.terms) * 100).toFixed(1) + ')');
+	wonBox.find('.wrong').html(score.wrong + ' (' + ((score.wrong / score.terms) * 100).toFixed(1) + ')');
 
 	wonBox.show();
 }
@@ -137,7 +137,10 @@ function switchToNextListSet() {
 function checkAnswer(answer) {
 	var buttonNext;
 	//alert("answer -" + answer + "- vs " + flashcardList.roots[window.termNo].def);
-	++score.guesses;
+
+	if (this.lastTerm !== window.currentDef) {
+		++score.terms;
+	}
 
 	if (answer == window.currentDef) {
 		++score.correct;
@@ -164,8 +167,11 @@ function checkAnswer(answer) {
 		}
 
 	} else {
+		if (this.lastTerm !== window.currentDef) {
+			++score.wrong;
+		}
+
 		++window.guessNo;
-		++score.wrong;
 		$('#correctAnswer').hide();
 		$('#wrongAnswer').show();
 
@@ -174,6 +180,8 @@ function checkAnswer(answer) {
 			nextTerm();
 		}
 	}
+
+	this.lastTerm = window.currentDef;
 
 	$('input#def').focus().select();
 }

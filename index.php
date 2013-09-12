@@ -38,8 +38,8 @@ include 'views/_header.tpl.php';
 				<h2>Congratulations! You've won!</h2>
 				<table class="score">
 					<tr>
-						<th>Guesses</th>
-						<td class="guesses"></td>
+						<th>Cards</th>
+						<td class="terms"></td>
 					</tr>
 					<tr>
 						<th>Correct</th>
