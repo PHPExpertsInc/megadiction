@@ -40,7 +40,8 @@
 		},
 		{
 			"term" : "uni",
-			"def" : "one"
+			"def" : "one",
+			"dontTest" : true
 		},
 		{
 			"term" : "non",
@@ -60,7 +61,8 @@
 		},
 		{
 			"term" : "mono",
-			"def" : "one"
+			"def" : "one",
+			"dontTest" : true
 		},
 		{
 			"term" : "pond",

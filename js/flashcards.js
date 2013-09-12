@@ -225,6 +225,12 @@ function randomizeLesson(chanceSwapped) {
 	var newTerm;
 	cardCount = superArray.length;
 	for (var i = cardCount - 1; i >= 0; --i) {
+		// Remove terms that are bad for tests.
+		if (superArray[i].hasOwnProperty('dontTest') && superArray[i].dontTest === true) {
+			superArray.splice(i, 1);
+			continue;
+		}
+
 		if ($.isNumeric(superArray[i].def) === true ) { continue; }
 
 		diceRoll = Math.floor((Math.random() * chanceSwapped) + 1);
