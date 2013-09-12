@@ -68,7 +68,7 @@ include 'views/_header.tpl.php';
 		</div>
 	</div>
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
-	<script src="js/jquery.address-1.5.min.js"/>
+	<script src="js/jquery.address-1.6.min.js"/>
 	<script src="js/flashcards.js"/>
 	<script src="js/accesskeys.js"/>
 <?php

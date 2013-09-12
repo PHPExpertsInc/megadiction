@@ -351,7 +351,7 @@ $('#listJumpBox').change(function() {
 
 
 $(function () {
-	$.address.crawlable(true);
+	//$.address.crawlable(true);	// SE crawl support was removed in 1.6?
 	$(window).trigger('resize');
 
 	$('ul.menu li a').address();
