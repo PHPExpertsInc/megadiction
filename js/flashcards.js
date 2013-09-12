@@ -229,6 +229,9 @@ function randomizeLesson(chanceSwapped) {
 
 	var diceRoll = 0;
 	var origSet;
+	var numOfRolls = 1;
+	if (window.testMode === true) { ++numOfRolls; }
+
 	cardCount = superArray.length;
 	for (i = cardCount - 1; i >= 0; --i) {
 		origSet = null;
@@ -240,15 +243,15 @@ function randomizeLesson(chanceSwapped) {
 
 		if ($.isNumeric(superArray[i].def) === true ) { continue; }
 
-		diceRoll = Math.floor((Math.random() * chanceSwapped) + 1);
-		origSet = superArray[i];
+		for (var j = 0; j < numOfRolls; ++j) {
+			diceRoll = Math.floor((Math.random() * chanceSwapped) + 1);
+			origSet = superArray[i];
 
-		//if (i % 2 === 0) {
-		if (diceRoll == chanceSwapped) {
-			superArray[i] = substituteTermWithDef(origSet);
-			superArray.push(origSet);
-		} else {
-			//superArray.push(substituteTermWithDef(origSet));
+			if (diceRoll == chanceSwapped) {
+				superArray[i] = substituteTermWithDef(origSet);
+				superArray.push(origSet);
+				break;
+			}
 		}
 	}
 
