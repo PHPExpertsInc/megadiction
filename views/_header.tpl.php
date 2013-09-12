@@ -35,9 +35,12 @@ if (!empty($customCSS)) {
 	}
 }
 ?>
+		<!--<script src="js/jquery-1.9.1.min.js"></script>-->
+		<script src="js/jquery-2.0.3.min.js"></script>
+		<script src="js/jquery-migrate-1.1.0.min.js"></script>
+
         <script type="text/javascript" src="js/prettify.js"></script>                                   <!-- PRETTIFY -->
         <script type="text/javascript" src="js/kickstart.js"></script>                                  <!-- KICKSTART -->
-        <script src="js/jquery-1.8.3.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/kickstart.css" media="all" />                  <!-- KICKSTART -->
         <meta name="description" content="Megadiction: : Virtual Flashcards that work. Improve your vocabulary, among other things."/>
         <meta property="og:image" content="<?php echo $meta->image; ?>"/>
