@@ -7,7 +7,7 @@ function highlightAccessKeys() {
     //don't do anything in old browsers
     if (!document.getElementsByTagName) return;
 
-    var labels = document.getElementsByTagName('LABEL');
+    var labels = document.getElementsByTagName('label');
     for (var i = 0; i < labels.length; i++) {
         var control = document.getElementById(labels[i].htmlFor);
         if (control && control.accessKey) {
@@ -17,7 +17,7 @@ function highlightAccessKeys() {
         }
     }
 
-    var tagNames = new Array('A', 'BUTTON', 'LEGEND');
+    var tagNames = new Array('a', 'button', 'legend');
     for (var j = 0; j < tagNames.length; j++) {
         var elements = document.getElementsByTagName(tagNames[j]);
         for (var i = 0; i < elements.length; i++) {
@@ -50,7 +50,7 @@ function highlightAccessKey(e, accessKey) {
         }
 
         var pos = txt.toLowerCase().indexOf(accessKey.toLowerCase());
-        var span = document.createElement('SPAN');
+        var span = document.createElement('span');
         var spanText = document.createTextNode(txt.substr(pos, 1));
         span.className = 'accesskey';
         span.appendChild(spanText);
