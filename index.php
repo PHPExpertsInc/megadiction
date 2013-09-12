@@ -57,7 +57,7 @@ include 'views/_header.tpl.php';
 	</div>
 	<div class="contentBox">
 		<div style="text-align: center">
-			<div style="position: absolute; top: 10px; left: 15px"><button class="blue" id="randomizeList" accesskey="R" onclick="randomizeLesson();">Randomize</button></div>
+			<div style="position: absolute; top: 10px; left: 15px"><button class="blue" id="randomizeList" accesskey="P" onclick="randomizeLesson();">Practice</button></div>
 			<button class="blue" style="background: #F73437; color: white" id="startTestMode" accesskey="T">Test</button>
 		</div>
 	</div>

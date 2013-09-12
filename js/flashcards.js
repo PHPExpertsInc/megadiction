@@ -194,27 +194,56 @@ function shuffle(array) {
 	return array;
 }
 
-function randomizeLesson() {
+function substituteTermWithDef(termSet) {
+	var newTS = new Object();
+
+	newTS.term = termSet.def;
+	newTS.def = termSet.term;
+
+	return newTS;
+}
+
+function randomizeLesson(chanceSwapped) {
+	var superArray = [];
+	var cardCount = 0;
+	var origTermSet;
+
+	if (chanceSwapped === undefined) { chanceSwapped = 5; }
 	window.questionNo = 0;
 	score = new Score();
 	setupList();
 
 
 	flashcardList.random = [];
-	var superArray = [];
 	for (var i = 0; i < window.origSets.length; ++i) {
 		if (window.origSets[i] == 'random') { continue; }
 
 		superArray = superArray.concat(flashcardList[window.origSets[i]]);
 	}
 
-	flashcardList.random = shuffle(superArray);
+	var diceRoll = 0;
+	var newTerm;
+	cardCount = superArray.length;
+	for (var i = cardCount - 1; i >= 0; --i) {
+		if ($.isNumeric(superArray[i].def) === true ) { continue; }
 
-	/*
-	for (var i = 0; i < flashcardList.random.length; ++i) {
-		alert("term: " + flashcardList.random[i].term);
+		diceRoll = Math.floor((Math.random() * chanceSwapped) + 1);
+		origSet = superArray[i];
+
+		//if (i % 2 === 0) {
+		if (diceRoll == chanceSwapped) {
+			superArray[i] = substituteTermWithDef(origSet);
+			superArray.push(origSet);
+		} else {
+			//superArray.push(substituteTermWithDef(origSet));
+		}
 	}
 
+	flashcardList.random = shuffle(superArray);
+
+	//alert(JSON.stringify(flashcardList.random, null, 2));
+
+	/*
 	window.termNo = -1;
 	window.sets = ['random'];
 	*/
@@ -228,7 +257,7 @@ function randomizeLesson() {
 }
 
 function startTestMode() {
-	randomizeLesson();
+	randomizeLesson(3);
 
 	// This has to be after randomizeLesson()
 	window.testMode = true;
