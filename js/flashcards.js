@@ -62,12 +62,12 @@ function setupList() {
 	$('button#startTestMode').html('<span xmlns="http://www.w3.org/1999/xhtml" class="accesskey">T</span>est');
 	window.termNo = -1;
 	window.questionNo = 0;
-	$('#listtitle span#title663').html(flashcardList.title + ' | ');
+	$('span#title663').html(flashcardList.title + ' | ');
 	$('input#def').focus();
 
 	window.sets = [];
 	for (var propName in flashcardList) {
-		 if (typeof flashcardList[propName] === 'object') {
+		 if (flashcardList.hasOwnProperty(propName) && typeof flashcardList[propName] === 'object') {
 			 window.sets.push(propName);
 		 }
 	}
@@ -91,34 +91,38 @@ function showVictoryBox() {
 }
 
 function nextTerm() {
+	var inputDef; var defHint;
 	++window.termNo;
 	switchToNextListSet();
 
 	window.guessNo = 0;
 	++window.questionNo;
-	$('input#def').val('').removeClass('wrongAnswer');
+	inputDef = $('input#def');
+	defHint = $('#defHint');
+
+	inputDef.val('').removeClass('wrongAnswer');
 	$('img.wrongAnswer').hide();
-	$('div#correctAnswer').hide();
-	$('div#wrongAnswer').hide();
+	$('#correctAnswer').hide();
+	$('#wrongAnswer').hide();
 	if (window.testMode === false) {
 		$('div#showAnswerBox').show();
 	}
 
 	window.currentDef = flashcardList[window.currentSet][window.termNo].def;
 
-	$('h3#listtitle span#qNo').html(window.questionNo);
-	$('h2#term').html(flashcardList[window.currentSet][window.termNo].term);
+	$('#qNo').html(window.questionNo);
+	$('#term').html(flashcardList[window.currentSet][window.termNo].term);
 
-	if ($('div#def')) {
+//	if ($('div#def')) {
 		$('div#def').replaceWith('<input type="text" id="def" class="typeInBox"/>');
 
 		if (window.testMode === false && $('input#showAnswer').prop('checked') == true) {
-			$('input#defHint').val(window.currentDef);
+			defHint.val(window.currentDef);
 		}
 
-		$('input#defHint').show();
+		defHint.show();
 
-	}
+//	}
 
 	$('input#def').focus().select();
 }
@@ -131,27 +135,30 @@ function switchToNextListSet() {
 }
 
 function checkAnswer(answer) {
+	var buttonNext;
 	//alert("answer -" + answer + "- vs " + flashcardList.roots[window.termNo].def);
 	++score.guesses;
 
 	if (answer == window.currentDef) {
 		++score.correct;
-		$('div#wonBox').hide();
-		$('div#wrongAnswer').hide();
-		$('div#correctAnswer').show();
+
+		buttonNext = $('button#next');
+
+		$('#wonBox').hide();
+		$('#wrongAnswer').hide();
+		$('#correctAnswer').show();
 		$('input#def').replaceWith('<div id="def">' + answer + '</div>');
 		$('input#defHint').hide().val('');
-		$('div#showAnswerBox').hide();
+		$('#showAnswerBox').hide();
 
 		if ($('input#alwaysShowHint').prop('checked') === false) {
 			$('input#showAnswer').prop('checked', false);
 		}
 
-		$('button#next').show().focus();
+		buttonNext.show().focus();
 
 		if (window.sets.length === 0 && window.termNo == flashcardList[window.currentSet].length - 1) {
-			$('button#next').blur();
-			$('button#next').hide();
+			buttonNext.blur().hide();
 
 			showVictoryBox();
 		}
@@ -159,8 +166,8 @@ function checkAnswer(answer) {
 	} else {
 		++window.guessNo;
 		++score.wrong;
-		$('div#correctAnswer').css('display', 'none');
-		$('div#wrongAnswer').css('display', 'block');
+		$('#correctAnswer').hide();
+		$('#wrongAnswer').show();
 
 		if (window.testMode == true && window.guessNo >= 3) {
 			alert("You've given an incorrect answer 3x. Going to next word.");
@@ -205,8 +212,7 @@ function substituteTermWithDef(termSet) {
 
 function randomizeLesson(chanceSwapped) {
 	var superArray = [];
-	var cardCount = 0;
-	var origTermSet;
+	var cardCount;
 
 	if (chanceSwapped === undefined) { chanceSwapped = 5; }
 	window.questionNo = 0;
@@ -222,9 +228,13 @@ function randomizeLesson(chanceSwapped) {
 	}
 
 	var diceRoll = 0;
-	var newTerm;
+	var origSet;
+	var numOfRolls = 1;
+	if (window.testMode === true) { ++numOfRolls; }
+
 	cardCount = superArray.length;
-	for (var i = cardCount - 1; i >= 0; --i) {
+	for (i = cardCount - 1; i >= 0; --i) {
+		origSet = null;
 		// Remove terms that are bad for tests.
 		if (superArray[i].hasOwnProperty('dontTest') && superArray[i].dontTest === true) {
 			superArray.splice(i, 1);
@@ -233,15 +243,15 @@ function randomizeLesson(chanceSwapped) {
 
 		if ($.isNumeric(superArray[i].def) === true ) { continue; }
 
-		diceRoll = Math.floor((Math.random() * chanceSwapped) + 1);
-		origSet = superArray[i];
+		for (var j = 0; j < numOfRolls; ++j) {
+			diceRoll = Math.floor((Math.random() * chanceSwapped) + 1);
+			origSet = superArray[i];
 
-		//if (i % 2 === 0) {
-		if (diceRoll == chanceSwapped) {
-			superArray[i] = substituteTermWithDef(origSet);
-			superArray.push(origSet);
-		} else {
-			//superArray.push(substituteTermWithDef(origSet));
+			if (diceRoll == chanceSwapped) {
+				superArray[i] = substituteTermWithDef(origSet);
+				superArray.push(origSet);
+				break;
+			}
 		}
 	}
 
@@ -288,19 +298,20 @@ $('input#alwaysShowHint').click(function() {
 });
 
 $(window).resize(function() {
-	var scrollHeight = $('div#page-wrapper').get(0).scrollHeight;
-	var newHeight = $(window).height() - $('div#page-wrapper').offset().top;
+	var pageWrapper = $('div#page-wrapper');
+	var scrollHeight = pageWrapper.get(0).scrollHeight;
+	var newHeight = $(window).height() - pageWrapper.offset().top;
 	if (newHeight < scrollHeight - 20) { newHeight = scrollHeight - 20; }
-	$('div#page-wrapper').height(newHeight);
+	pageWrapper.height(newHeight);
 });
 
-$('body').on('keypress', 'input#def', function(e) {
+$(document).on('keypress', 'input#def', function(e) {
 	if (e.keyCode == 13) {
 
 		checkAnswer($(this).val());
 	}
 });
-$('body').on('keyup	', 'input#def', function(e) {
+$(document).on('keyup	', 'input#def', function() {
 	if (window.testMode === true) { return; }
 	var typedText = $(this).val();
 
@@ -334,21 +345,14 @@ $('button#startTestMode').click(function() {
 	$(this).text('Testing');
 });
 
-$('select#listJumpBox').change(function(e) {
-	//alert(a);
+$('#listJumpBox').change(function() {
 	$.address.value(subject + '/' + $(this).val())
-
 });
 
 
 $(function () {
 	$.address.crawlable(true);
-	//alert($.address.crawlable());
 	$(window).trigger('resize');
-	//$.address.parameter('q', 'val');
-	newHash = window.location.hash.substring(1);
 
 	$('ul.menu li a').address();
-	//window.location.hash = '';
-	//alert($.address.state('stateBasePath'));
 });

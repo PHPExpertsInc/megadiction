@@ -13,7 +13,7 @@ div.contentBox {
 	margin-top: 10px; padding: 10px 0;
 }
 
-div.contentBox #inner { margin: 20px; }
+div.contentBox .inner { margin: 20px; }
 
 ul.menu { margin-top: -10px;padding: 0; text-align: center; list-style: none; font-weight: bold; background: #4933D6; color: white; }
 ul.menu li { display: inline; }

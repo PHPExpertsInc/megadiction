@@ -344,7 +344,8 @@
 		},
 		{
 			"term" : "sanct",
-			"def" : "holy"
+			"def" : "holy",
+			"dontTest" : true
 		},
 		{
 			"term" : "phon",
@@ -384,7 +385,8 @@
 		},
 		{
 			"term" : "sacro",
-			"def" : "holy"
+			"def" : "holy",
+			"dontTest" : true
 		},
 		{
 			"term" : "caco",
