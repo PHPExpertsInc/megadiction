@@ -13,7 +13,7 @@ include 'views/_header.tpl.php';
 			<li><a href="#!/addition">Addition Tables</a></li>
 			<li><a href="#!/multitables">Multiplication Tables</a></li>
 		</ul>
-		<div id="inner">
+		<div class="inner">
 			<div id="jumpListBox">Jump to a List
 				<select id="listJumpBox">
 				</select>
@@ -58,11 +58,11 @@ include 'views/_header.tpl.php';
 	<div class="contentBox">
 		<div style="text-align: center">
 			<div style="position: absolute; top: 10px; left: 15px"><button class="blue" id="randomizeList" accesskey="P" onclick="randomizeLesson();">Practice</button></div>
-			<button class="blue" style="background: #F73437; color: white" id="startTestMode" accesskey="T">Test</button>
+			<button class="red" id="startTestMode" accesskey="T">Test</button>
 		</div>
 	</div>
 	<div class="contentBox" id="todoBox">
-		<div id="inner">
+		<div class="inner">
 			<h4>TODO List</h4>
 			<?php include '_todo.php'; ?>
 		</div>
