@@ -34,9 +34,9 @@ $.address.change(function(e) {
 		//	alert(a);
 			if (a == listId)
 			{
-				listJumpBox.prepend('<option value="' + a + '" selected="selected">' + a + '</option>')
+				listJumpBox.prepend('<option value="' + a + '" selected="selected">' + data_in[a - 1].title + '</option>')
 			} else {
-				listJumpBox.append('<option value="' + a + '">' + a + '</option>')
+				listJumpBox.append('<option value="' + a + '">' + data_in[a - 1].title + '</option>')
 			}
 
 		}

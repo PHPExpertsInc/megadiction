@@ -14,7 +14,7 @@ include 'views/_header.tpl.php';
 			<li><a href="#!/multitables">Multiplication Tables</a></li>
 		</ul>
 		<div class="inner">
-			<div id="jumpListBox">Jump to a List
+			<div id="jumpListBox">Jump to 
 				<select id="listJumpBox">
 				</select>
 			</div>
