@@ -1,7 +1,8 @@
 <?php
 header('Content-Type: application/xhtml+xml');
 
-$customCSS = array('css/flashcards.css');
+$customCSS = array('css/flashcards.css',
+                   'css/jquery-ui-1.10.3_smooth.css');
 
 include 'views/_header.tpl.php';
 
@@ -14,7 +15,7 @@ include 'views/_header.tpl.php';
 			<li><a href="#!/multitables">Multiplication Tables</a></li>
 		</ul>
 		<div class="inner">
-			<div id="jumpListBox">Jump to 
+			<div id="jumpListBox">Jump to
 				<select id="listJumpBox">
 				</select>
 			</div>
@@ -55,6 +56,7 @@ include 'views/_header.tpl.php';
 			</div>
 		</div>
 	</div>
+	<div id="progressbar"></div>
 	<div class="contentBox">
 		<div style="text-align: center">
 			<div style="position: absolute; top: 10px; left: 15px"><button class="blue" id="randomizeList" accesskey="P" onclick="randomizeLesson();">Practice</button></div>
@@ -69,8 +71,10 @@ include 'views/_header.tpl.php';
 	</div>
 	<div id="dedication">Dedicated to Hudson Q. Lee</div>
 	<script src="js/jquery.address-1.6.min.js"/>
+	<script src="js/jquery-ui-1.10.3.min.js"></script>
 	<script src="js/flashcards.js"/>
 	<script src="js/accesskeys.js"/>
+
 <?php
 include 'views/_footer.tpl.php';
 

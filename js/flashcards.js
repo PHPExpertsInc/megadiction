@@ -55,6 +55,7 @@ function Score() {
 }
 
 var score = new Score();
+var totalTerms = 0;
 
 function setupList() {
 	window.testMode = false;
@@ -64,16 +65,22 @@ function setupList() {
 	window.questionNo = 0;
 	$('span#title663').html(flashcardList.title + ' | ');
 	$('input#def').focus();
+	$('#progressbar').progressbar({ value: 0 });
 
 	window.sets = [];
-	for (var propName in flashcardList) {
-		 if (flashcardList.hasOwnProperty(propName) && typeof flashcardList[propName] === 'object') {
-			 window.sets.push(propName);
-		 }
+
+	if (window.currentSet !== 'random') {
+		for (var propName in flashcardList) {
+			 if (flashcardList.hasOwnProperty(propName) && typeof flashcardList[propName] === 'object') {
+				window.sets.push(propName);
+				totalTerms += flashcardList[propName].length;
+			 }
+		}
+
+		window.origSets = window.sets.slice(0);  // Use array.slice(0) to clone an array.
+		window.currentSet = window.sets.shift();
 	}
 
-	window.origSets = window.sets.slice(0);  // Use array.slice(0) to clone an array.
-	window.currentSet = window.sets.shift();
 	$('div#jumpListBox').show();
 }
 
@@ -136,6 +143,7 @@ function switchToNextListSet() {
 
 function checkAnswer(answer) {
 	var buttonNext;
+	var progress;
 	//alert("answer -" + answer + "- vs " + flashcardList.roots[window.termNo].def);
 
 	if (this.lastTerm !== window.currentDef) {
@@ -160,7 +168,11 @@ function checkAnswer(answer) {
 
 		buttonNext.show().focus();
 
-		if (window.sets.length === 0 && window.termNo == flashcardList[window.currentSet].length - 1) {
+		progress = (score.terms / totalTerms) * 100;
+		$('#progressbar').progressbar({ value: progress });
+
+		//if (window.sets.length === 0 && window.termNo == flashcardList[window.currentSet].length - 1) {
+		if (totalTerms - score.terms === 0) {
 			buttonNext.blur().hide();
 
 			showVictoryBox();
@@ -225,6 +237,11 @@ function randomizeLesson(chanceSwapped) {
 	if (chanceSwapped === undefined) { chanceSwapped = 5; }
 	window.questionNo = 0;
 	score = new Score();
+
+	window.sets = [];
+	window.currentSet = 'random';
+	window.termNo = -1;
+
 	setupList();
 
 
@@ -264,6 +281,7 @@ function randomizeLesson(chanceSwapped) {
 	}
 
 	flashcardList.random = shuffle(superArray);
+	totalTerms = flashcardList.random.length;
 
 	//alert(JSON.stringify(flashcardList.random, null, 2));
 
@@ -272,9 +290,6 @@ function randomizeLesson(chanceSwapped) {
 	window.sets = ['random'];
 	*/
 
-	window.sets = [];
-	window.currentSet = 'random';
-	window.termNo = -1;
 
 	//switchToNextListSet();
 	nextTerm();
@@ -359,8 +374,9 @@ $('#listJumpBox').change(function() {
 
 
 $(function () {
-	//$.address.crawlable(true);	// SE crawl support was removed in 1.6?
 	$(window).trigger('resize');
 
 	$('ul.menu li a').address();
+
+	$('#progressbar').progressbar({ value: 0 });
 });

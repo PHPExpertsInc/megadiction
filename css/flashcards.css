@@ -35,6 +35,16 @@ table.score td { width: 7em; text-align: center; }
 table.score .correct { color: green; }
 table.score .wrong { color: red; }
 
+div#progressbar { margin: 0 auto;
+    width: 305px;
+    height: 25px !important;
+    position: relative;
+    top: -20px;
+    margin-bottom: -15px;
+}
+
+div#progressbar .ui-progressbar-value { background: rgb(62, 174, 84); }
+
 div#dedication { position: fixed; bottom: 0; left: 0; color: white; }
 
 /* Override main.css */
