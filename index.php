@@ -50,13 +50,16 @@ include 'views/_header.tpl.php';
 						<td class="wrong"></td>
 					</tr>
 				</table>
-				<p>Go to the <a id="nextLessonLink" href="#"><strong>next lesson</strong></a>, <br/>
-				   or <strong><a href="javascript: randomizeLesson();">randomize</a></strong> the current flash cards and play again.</p>
+				<p>Go to the <a id="nextLessonLink" href="#" accesskey="n"><strong><label>next lesson</label></strong></a>, <br/>
+				   or <strong><a href="javascript: randomizeLesson();" accesskey="r"><label>randomize</label></a></strong> the current flash cards and play again.</p>
 			</div>
 		</div>
 	</div>
 	<div class="contentBox">
-		<div style="text-align: center"><button class="blue" style="background: #F73437; color: white" id="startTestMode">Start Test Mode</button></div>
+		<div style="text-align: center">
+			<div style="position: absolute; top: 10px; left: 15px"><button class="blue" id="randomizeList" accesskey="P" onclick="randomizeLesson();">Practice</button></div>
+			<button class="blue" style="background: #F73437; color: white" id="startTestMode" accesskey="T">Test</button>
+		</div>
 	</div>
 	<div class="contentBox" id="todoBox">
 		<div id="inner">

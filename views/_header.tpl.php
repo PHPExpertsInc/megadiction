@@ -45,7 +45,7 @@ if (!empty($customCSS)) {
         <meta property="og:type" content="website"/>
         <meta property="og:url" content="http://www.phpu.cc/megadiction/"/>
         <script type="text/javascript" src="js/external.js"></script>
-<?php if (!empty($customHeader)) { echo $customHeader; } ?>
+        <?php if (!empty($customHeader)) { echo $customHeader; } ?>
     </head>
 <body>
 <div id="fb-root"></div>
