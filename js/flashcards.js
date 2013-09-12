@@ -58,6 +58,8 @@ var score = new Score();
 
 function setupList() {
 	window.testMode = false;
+	$('div#wonBox').hide();
+	$('button#startTestMode').html('<span xmlns="http://www.w3.org/1999/xhtml" class="accesskey">T</span>est');
 	window.termNo = -1;
 	window.questionNo = 0;
 	$('#listtitle span#title663').html(flashcardList.title + ' | ');
@@ -294,7 +296,7 @@ $('input#showAnswer').click(function() {
 
 $('button#startTestMode').click(function() {
 	startTestMode();
-	$(this).text('Test Mode is Active');
+	$(this).text('Testing');
 });
 
 $('select#listJumpBox').change(function(e) {
