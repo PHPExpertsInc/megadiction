@@ -88,7 +88,7 @@ function showVictoryBox() {
 	var wonBox = $('div#wonBox');
 	var nextListId = +listId + 1;
 
-	wonBox.find('a#nextLessonLink').attr('href', '#!/' + subject + '/' + nextListId);
+	wonBox.find('a#nextLessonLink').attr('href', '#/' + subject + '/' + nextListId);
 
 	wonBox.find('.terms').html(score.terms);
 	wonBox.find('.correct').html(score.correct + ' (' + ((score.correct / score.terms) * 100).toFixed(1) + ')');
@@ -188,6 +188,8 @@ function checkAnswer(answer) {
 		$('#wrongAnswer').show();
 
 		if (window.testMode == true && window.guessNo >= 3) {
+			this.lastTerm = window.currentDef;
+
 			alert("You've given an incorrect answer 3x. Going to next word.");
 			nextTerm();
 		}
