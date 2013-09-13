@@ -188,6 +188,8 @@ function checkAnswer(answer) {
 		$('#wrongAnswer').show();
 
 		if (window.testMode == true && window.guessNo >= 3) {
+			this.lastTerm = window.currentDef;
+
 			alert("You've given an incorrect answer 3x. Going to next word.");
 			nextTerm();
 		}
