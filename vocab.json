@@ -713,7 +713,7 @@
 			"def" : "werewolf"
 		},
 		{
-			"term" : "circumambeint",
+			"term" : "circumambient",
 			"def" : "surrounding"
 		},
 		{
@@ -1170,7 +1170,7 @@
 			"def" : "fear of insanity"
 		},
 		{
-			"term" : "idée fixe",
+			"term" : "idee fixe",
 			"def" : "obsession"
 		},
 		{
@@ -1293,7 +1293,7 @@
 			"def" : "tediously wordy"
 		},
 		{
-			"term" : "narcissim",
+			"term" : "narcissism",
 			"def" : "self-infatuation"
 		},
 		{
@@ -1310,7 +1310,7 @@
 		},
 		{
 			"term" : "apostasy",
-			"def" : "desertion of principle"
+			"def" : "stop believing in a religion or god"
 		},
 		{
 			"term" : "hedonism",
@@ -1387,7 +1387,8 @@
 		},
 		{
 			"term" : "super",
-			"def" : "over"
+			"def" : "over",
+			"dontTest" : true
 		},
 		{
 			"term" : "dict",
@@ -1407,7 +1408,8 @@
 		},
 		{
 			"term" : "sur",
-			"def" : "over"
+			"def" : "over",
+			"dontTest" : true
 		},
 		{
 			"term" : "lect",
