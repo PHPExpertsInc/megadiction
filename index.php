@@ -13,6 +13,7 @@ include 'views/_header.tpl.php';
 			<li><a href=".">Vocab</a></li>
 			<li><a href="#!/addition">Addition Tables</a></li>
 			<li><a href="#!/multitables">Multiplication Tables</a></li>
+			<li><a href="#!/division">Division</a></li>
 		</ul>
 		<div class="inner">
 			<div id="jumpListBox">Jump to

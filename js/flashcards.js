@@ -376,6 +376,10 @@ $('#listJumpBox').change(function() {
 
 
 $(function () {
+	// Disable Android / iOS autosuggest.
+	webview.getSettings().setSaveFormData(false);
+	webview.clearFormData();	
+	
 	$(window).trigger('resize');
 
 	$('ul.menu li a').address();
