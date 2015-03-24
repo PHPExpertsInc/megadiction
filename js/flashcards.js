@@ -8,8 +8,8 @@ $.address.change(function(e) {
 	var file = '';
 	var listJumpBox;
 	if (e.pathNames[0] === undefined) {
-		subject = 'vocab';
-		file = 'vocab.json';
+		subject = 'spanish';
+		file = 'spanish.json';
 	}
 	else {
 		subject = e.pathNames[0];
