@@ -374,6 +374,12 @@ $('#listJumpBox').change(function() {
 	$.address.value(subject + '/' + $(this).val())
 });
 
+$('#diacriticsBox').find('button').click(function() {
+	var defText = $('#def');
+	defText.val(defText.val() + $(this).text());
+	defText.focus();
+});
+
 
 $(function () {
 	// Disable Android / iOS autosuggest.
