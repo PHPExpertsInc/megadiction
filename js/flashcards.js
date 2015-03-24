@@ -3,6 +3,7 @@
 var flashcardList = [];
 var subject = '';
 var listId = 1;
+var questionNo = 1;
 
 $.address.change(function(e) {
 	var file = '';
@@ -20,6 +21,12 @@ $.address.change(function(e) {
 		listId = 1;
 	} else {
 		listId = e.pathNames[1];
+	}
+
+	if (e.pathNames[2] === undefined) {
+		questionNo = 0;
+	} else {
+		questionNo = e.pathNames[2] - 2;
 	}
 
 	$.getJSON(file, function(data_in) {
@@ -61,8 +68,8 @@ function setupList() {
 	window.testMode = false;
 	$('div#wonBox').hide();
 	$('button#startTestMode').html('<span xmlns="http://www.w3.org/1999/xhtml" class="accesskey">T</span>est');
-	window.termNo = -1;
-	window.questionNo = 0;
+	window.termNo = window.questionNo;
+
 	$('span#title663').html(flashcardList.title + ' | ');
 	$('input#def').focus();
 	$('#progressbar').progressbar({ value: 0 });
@@ -117,8 +124,9 @@ function nextTerm() {
 
 	window.currentDef = flashcardList[window.currentSet][window.termNo].def;
 
-	$('#qNo').html(window.questionNo);
+	$('#qNo').html(window.questionNo + 1);
 	$('#term').html(flashcardList[window.currentSet][window.termNo].term);
+	window.location.hash = '#/' + subject + '/' + listId + '/' + (window.questionNo + 1);
 
 //	if ($('div#def')) {
 		$('div#def').replaceWith('<input type="text" id="def" class="typeInBox"/>');
