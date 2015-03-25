@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "com.phpexpertsinc.spanishtutor"
+        versionCode = "10"
+        version     = "1.0.0" >
+
+    <!-- versionCode is optional and Android only -->
+
+    <name>Spanish-Inglés Tutor</name>
+
+    <description>
+        A flashcard app aimed to help you immediately learn essential words, sentences and phrases in both English and Spanish. [Una aplicación de tarjeta de memoria flash como objetivo ayudar a usted inmediatamente aprenden palabras esenciales, oraciones y frases en Inglés y Español.]
+    </description>
+
+    <author href="http://www.phpexperts.pro/" email="theodore@phpexperts.pro">
+        Theodore R. Smith via PHP Experts, Inc.
+    </author>
+
+    <preference name="phonegap-version" value="3.6.3" />
+    <gap:platform name="android" />
+</widget>

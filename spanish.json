@@ -1,0 +1,115 @@
+[
+{
+	"title": "Basic (Básico)",
+	"words" : [
+	  {
+		"term" : "Two three four one zero five",
+		"def" : "Dos tres cuatro uno cero cinco"
+	  },
+
+	  {
+		"term" : "Eight six seven five ten nine",
+		"def" : "Ocho seis siete cinco diez nueve"
+	  },
+
+	  {
+		"term" : "Twenty twenty-three twenty-seven twenty-five",
+		"def" : "Veinte veintitrés veintisiete veinticinco"
+	  },
+
+	  {
+		"term" : "Thirteen eleven fourteen twelve fifteen",
+		"def" : "Trece once catorce doce quince"
+	  },
+
+	  {
+		"term" : "What is your name?",
+		"def" : "¿Cuál es tu nombre?"
+	  },
+
+	  {
+		"term" : "What is your telephone number?",
+		"def" : "¿Cuál es tu número de teléfono?"
+	  },
+
+	  {
+		"term" : "How do you say this?",
+		"def" : "¿Cómo se dice esto?"
+	  },
+
+	  {
+		"term" : "How much does it cost?",
+		"def" : "Cuánto cuesta?"
+	  },
+
+	  {
+		"term" : "I'll be right back",
+		"def" : "Vuelvo derecha"
+	  },
+
+	  {
+		"term" : "You look beautiful",
+		"def" : "Estás preciosa"
+	  },
+
+	  {
+		"term" : "You're beautiful",
+		"def" : "Eres hermosa"
+	  },
+
+	  {
+		"term" : "What time is it?",
+		"def" : "¿Qué es el tiempo?"
+	  },
+
+	  {
+		"term" : "Are you hungry?",
+		"def" : "Tienes hambre?"
+	  },
+
+	  {
+		"term" : "I'm hungry",
+		"def" : "Tengo hambre"
+	  },
+
+	  {
+		"term" : "¿Qué hay de la comida china?",
+		"def" : "How about Chinese food?"
+	  },
+
+	  {
+		"term" : "What a pity.",
+		"def" : "Que lastima."
+	  }
+	]
+},
+{
+	"title": "Intro",
+	"words" : [
+		{
+		  "term" : "When is your birthday?",
+		  "def" : "Cuando es tu cumpleaños?"
+		},
+
+		{
+		  "term" : "Do you prefer intelligent men?",
+		  "def" : "¿Prefiere los hombres inteligentes?"
+		},
+
+		{
+		  "term" : "Would you like to see some magic?",
+		  "def" : "¿Te gustaría ver un poco de magia?"
+		},
+
+		{
+		  "term" : "Do you like going on adventures?",
+		  "def" : "¿Le gusta ir de aventuras?"
+		},
+
+		{
+		  "term" : "Do you like to travel?",
+		  "def" : "¿Te gusta viajar?"
+		}
+	]
+}
+]
