@@ -23,8 +23,8 @@ include 'views/_header.tpl.php';
 			<h3 id="listtitle"><span id="title663"></span> Question #<span id="qNo"></span></h3>
 			<h2 id="term"></h2>
 			<div style="position: relative; height: 35px">
-				<input type="text" id="def" class="typeInBox" name="def" accesskey="d" />
-				<input type="text" id="defHint" class="typeOverBox" name="def" accesskey="d" />
+				<input type="text" id="def" class="typeInBox" name="def" accesskey="d" autocomplete="off" />
+				<input type="text" id="defHint" class="typeOverBox" name="def" accesskey="d" autocomplete="off" />
 			</div>
 			<div id="showAnswerBox">
 				<input type="checkbox" id="showAnswer" accesskey="s"/> <label for="showAnswer">Show answer</label>
