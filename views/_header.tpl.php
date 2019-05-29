@@ -22,10 +22,6 @@ if (empty($meta->title)) { $meta->title = 'Megadiction | PHP University'; }
         <title><?php echo $meta->title; ?> | PHP University</title>
         <link href="css/default.css" rel="stylesheet" type="text/css" media="all" />
 	    <link href="css/main.css" rel="stylesheet" type="text/css" media="all" />
-	    <!--[if IE 6]>
-        <link href="css/default_ie6.css" rel="stylesheet" type="text/css" />
-        <![endif]-->
-        <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <?php
 if (!empty($customCSS)) {
 	foreach ($customCSS as $css) {
