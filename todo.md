@@ -11,4 +11,4 @@
 * **Feature:**  Randomly switch word with definition in Test Mode. (Done)
 * **Feature:**  Add a progress bar. (Done)
 * **Feature:**  Add multiple columns support. (Done)
-* **Refactor:** Organize the categories into a pretty dropdown. (In Progress)
+* **Refactor:** Organize the categories into a pretty dropdown. (Done)

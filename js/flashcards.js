@@ -32,6 +32,9 @@ $.address.change(function(e) {
 		file = e.pathNames[0] + '.json';
 	}
 
+	// Update subject dropdown to match current selection
+	updateSubjectDropdown(subject);
+
 	// Determine lesson type based on subject
 	lessonType = getLessonType(subject);
 
@@ -333,6 +336,17 @@ function startTestMode() {
 	$('div#jumpListBox').hide();
 }
 
+// Update subject dropdown to match current URL
+function updateSubjectDropdown(currentSubject) {
+	const dropdown = $('#subjectSelect');
+	
+	if (currentSubject === 'vocab' || currentSubject === '') {
+		dropdown.val('.');
+	} else {
+		dropdown.val('#!/' + currentSubject);
+	}
+}
+
 $('input#alwaysShowHint').click(function() {
 	const showAnswer = $('input#showAnswer');
 	if ($(this).prop('checked') == true) {
@@ -399,11 +413,20 @@ $('#listJumpBox').change(function() {
 	$.address.value(subject + '/' + $(this).val())
 });
 
+// Subject dropdown navigation handler
+$('#subjectSelect').change(function() {
+	const selectedValue = $(this).val();
+	if (selectedValue === '.') {
+		$.address.value('/');
+	} else {
+		// Extract the path from the hash link (e.g., "#!/addition" -> "addition")
+		const path = selectedValue.replace('#!/', '');
+		$.address.value('/' + path);
+	}
+});
 
 $(function () {
 	$(window).trigger('resize');
-
-	$('ul.menu li a').address();
 
 	$('#progressbar').progressbar({ value: 0 });
 	nextTerm()

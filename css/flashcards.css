@@ -1,3 +1,4 @@
+/* ==== ./css/flashcards.css ==== */
 div#page-wrapper {
 	background: url('../images/abstract_0005.jpg') white;
 }
@@ -15,10 +16,63 @@ div.contentBox {
 
 div.contentBox .inner { margin: 20px; }
 
-ul.menu { margin-top: -10px;padding: 0; text-align: center; list-style: none; font-weight: bold; background: #4933D6; color: white; }
-ul.menu li { display: inline; }
-ul.menu li + li::before { content: " | "; }
-ul.menu li a { background: #4933D6; padding: 10px 20px; color: white; }
+/* Pretty Subject Dropdown */
+.subject-dropdown-wrapper {
+    background: linear-gradient(135deg, #4933D6 0%, #6B5CE7 100%);
+    padding: 15px 20px;
+    margin: -10px 0 0 0;
+    text-align: center;
+    border-radius: 0;
+}
+
+.subject-dropdown-wrapper label {
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.subject-dropdown {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 10px 40px 10px 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4933D6;
+    cursor: pointer;
+    min-width: 200px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%234933D6' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+}
+
+.subject-dropdown:hover {
+    border-color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.subject-dropdown:focus {
+    outline: none;
+    border-color: white;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.subject-dropdown option {
+    padding: 10px;
+    font-weight: normal;
+}
+
+/* Hide old menu styles */
+ul.menu { display: none; }
 
 #def, #defHint { font-size: 150%; width: 100%; }
 div#correctAnswer, div#wrongAnswer { display: none; }
@@ -49,7 +103,6 @@ div#dedication { position: fixed; bottom: 0; left: 0; color: white; }
 
 /* Override main.css */
 div#wide-content { border: none; background: transparent; }
-ul.menu li a:hover, ul.menu li.hover>a { background: transparent !important; text-decoration: underline; }
 
 .typeInBox {
 	position: absolute;

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- ==== ./index.html ==== -->
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8"/>
@@ -59,12 +60,15 @@
         <div id="wide-content" class="box-style">
 
     <div class="contentBox">
-        <ul class="menu">
-            <li><a href=".">Vocab</a></li>
-            <li><a href="#!/addition">Addition Tables</a></li>
-            <li><a href="#!/multitables">Multiplication Tables</a></li>
-            <li><a href="#!/division">Division</a></li>
-        </ul>
+        <div class="subject-dropdown-wrapper">
+            <label for="subjectSelect">Subject:</label>
+            <select id="subjectSelect" class="subject-dropdown">
+                <option value=".">Vocab</option>
+                <option value="#!/addition">Addition Tables</option>
+                <option value="#!/multitables">Multiplication Tables</option>
+                <option value="#!/division">Division</option>
+            </select>
+        </div>
         <div class="inner">
             <div id="jumpListBox">Jump to
                 <select id="listJumpBox">
