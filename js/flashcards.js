@@ -82,21 +82,21 @@ let totalTerms = 0;
 function setupList() {
 	window.testMode = false;
 	$('div#wonBox').hide();
-	$('button#startTestMode').html('<span xmlns="http://www.w3.org/1999/xhtml" class="accesskey">T</span>est');
+	$('button#startTestMode').html('<span class="accesskey">T</span>est');
 	window.termNo = -1;
 	window.questionNo = 0;
 	$('span#title663').html(flashcardList.title + ' | ');
-	$('input#def').focus();
+	$('input#def').trigger('focus');
 	$('#progressbar').progressbar({ value: 0 });
 
 	window.sets = [];
 
 	if (window.currentSet !== 'random') {
-		for (const propName in flashcardList) {
-			 if (flashcardList.hasOwnProperty(propName) && typeof flashcardList[propName] === 'object') {
+		for (const [propName, value] of Object.entries(flashcardList)) {
+			if (typeof value === 'object') {
 				window.sets.push(propName);
-				totalTerms += flashcardList[propName].length;
-			 }
+				totalTerms += value.length;
+			}
 		}
 
 		window.origSets = window.sets.slice(0);  // Use array.slice(0) to clone an array.
@@ -151,7 +151,7 @@ function nextTerm() {
 			$('input#def').attr('type', inputType);
 		}
 
-		if (window.testMode === false && $('input#showAnswer').prop('checked') == true) {
+		if (window.testMode === false && $('input#showAnswer').prop('checked') === true) {
 			defHint.val(window.currentDef);
 		}
 
@@ -159,7 +159,7 @@ function nextTerm() {
 
 //	}
 
-	$('input#def').focus().select();
+	$('input#def').trigger('focus').trigger('select');
 }
 
 function switchToNextListSet() {
@@ -194,14 +194,14 @@ function checkAnswer(answer) {
 			$('input#showAnswer').prop('checked', false);
 		}
 
-		buttonNext.show().focus();
+		buttonNext.show().trigger('focus');
 
 		progress = (score.terms / totalTerms) * 100;
 		$('#progressbar').progressbar({ value: progress });
 
 		//if (window.sets.length === 0 && window.termNo == flashcardList[window.currentSet].length - 1) {
 		if (totalTerms - score.terms === 0) {
-			buttonNext.blur().hide();
+			buttonNext.trigger('blur').hide();
 
 			showVictoryBox();
 		}
@@ -215,7 +215,7 @@ function checkAnswer(answer) {
 		$('#correctAnswer').hide();
 		$('#wrongAnswer').show();
 
-		if (window.testMode == true && window.guessNo >= 3) {
+		if (window.testMode === true && window.guessNo >= 3) {
 			this.lastTerm = window.currentDef;
 
 			alert("You've given an incorrect answer 3x. Going to next word.");
@@ -225,7 +225,7 @@ function checkAnswer(answer) {
 
 	this.lastTerm = window.currentDef;
 
-	$('input#def').focus().select();
+	$('input#def').trigger('focus').trigger('select');
 }
 
 /*
@@ -252,7 +252,7 @@ function shuffle(array) {
 }
 
 function substituteTermWithDef(termSet) {
-	const newTS = new Object();
+	const newTS = {};
 
 	newTS.term = termSet.def;
 	newTS.def = termSet.term;
@@ -277,7 +277,7 @@ function randomizeLesson(chanceSwapped) {
 
 	flashcardList.random = [];
 	for (let i = 0; i < window.origSets.length; ++i) {
-		if (window.origSets[i] == 'random') { continue; }
+		if (window.origSets[i] === 'random') { continue; }
 
 		superArray = superArray.concat(flashcardList[window.origSets[i]]);
 	}
@@ -291,7 +291,7 @@ function randomizeLesson(chanceSwapped) {
 	for (let i = cardCount - 1; i >= 0; --i) {
 		origSet = null;
 		// Remove terms that are bad for tests.
-		if (superArray[i].hasOwnProperty('dontTest') && superArray[i].dontTest === true) {
+		if (Object.prototype.hasOwnProperty.call(superArray[i], 'dontTest') && superArray[i].dontTest === true) {
 			superArray.splice(i, 1);
 			continue;
 		}
@@ -302,7 +302,7 @@ function randomizeLesson(chanceSwapped) {
 			diceRoll = Math.floor((Math.random() * chanceSwapped) + 1);
 			origSet = superArray[i];
 
-			if (diceRoll == chanceSwapped) {
+			if (diceRoll === chanceSwapped) {
 				superArray[i] = substituteTermWithDef(origSet);
 				superArray.push(origSet);
 				break;
@@ -339,7 +339,7 @@ function startTestMode() {
 // Update subject dropdown to match current URL
 function updateSubjectDropdown(currentSubject) {
 	const dropdown = $('#subjectSelect');
-	
+
 	if (currentSubject === 'vocab' || currentSubject === '') {
 		dropdown.val('.');
 	} else {
@@ -347,21 +347,21 @@ function updateSubjectDropdown(currentSubject) {
 	}
 }
 
-$('input#alwaysShowHint').click(function() {
+$('input#alwaysShowHint').on('click', function() {
 	const showAnswer = $('input#showAnswer');
-	if ($(this).prop('checked') == true) {
+	if ($(this).prop('checked') === true) {
 		showAnswer.prop('checked', true);
 		$('input#defHint').val(window.currentDef);
-		showAnswer.attr('disabled', true);
+		showAnswer.prop('disabled', true);
 	}
 	else {
-		showAnswer.removeAttr('disabled');
+		showAnswer.prop('disabled', false);
 	}
 
-	$('input#def').focus();
+	$('input#def').trigger('focus');
 });
 
-$(window).resize(function() {
+$(window).on('resize', function() {
 	const pageWrapper = $('div#page-wrapper');
 	const scrollHeight = pageWrapper.get(0).scrollHeight;
 	let newHeight = $(window).height() - pageWrapper.offset().top;
@@ -370,12 +370,12 @@ $(window).resize(function() {
 });
 
 $(document).on('keypress', 'input#def', function(e) {
-	if (e.keyCode == 13) {
-
+    if (e.key === 'Enter') {
 		checkAnswer($(this).val());
 	}
 });
-$(document).on('keyup	', 'input#def', function() {
+
+$(document).on('keyup', 'input#def', function() {
 	if (window.testMode === true) { return; }
 	const typedText = $(this).val();
 
@@ -390,31 +390,31 @@ $(document).on('keyup	', 'input#def', function() {
 	}
 });
 
-$('button#next').click(function () {
+$('button#next').on('click', function () {
 	nextTerm();
 });
 
-$('input#showAnswer').click(function() {
-	if ($(this).prop('checked') == true) {
+$('input#showAnswer').on('click', function() {
+	if ($(this).prop('checked') === true) {
 		$('input#defHint').val(window.currentDef);
 	} else {
 		$('input#defHint').val('');
 	}
 
-	$('input#def').focus().select();
+	$('input#def').trigger('focus').trigger('select');
 });
 
-$('button#startTestMode').click(function() {
+$('button#startTestMode').on('click', function() {
 	startTestMode();
 	$(this).text('Testing');
 });
 
-$('#listJumpBox').change(function() {
+$('#listJumpBox').on('change', function() {
 	$.address.value(subject + '/' + $(this).val())
 });
 
 // Subject dropdown navigation handler
-$('#subjectSelect').change(function() {
+$('#subjectSelect').on('change', function() {
 	const selectedValue = $(this).val();
 	if (selectedValue === '.') {
 		$.address.value('/');
