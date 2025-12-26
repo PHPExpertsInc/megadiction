@@ -4,6 +4,21 @@
 let flashcardList = [];
 let subject = '';
 let listId = 1;
+let lessonType = 'vocab';
+
+// Mapping of subjects to lesson types
+const MATH_LESSONS = ['multitables', 'division', 'addition'];
+
+function getLessonType(subject) {
+	if (MATH_LESSONS.includes(subject)) {
+		return 'math';
+	}
+	return 'vocab';
+}
+
+function getInputType() {
+	return lessonType === 'math' ? 'number' : 'text';
+}
 
 $.address.change(function(e) {
 	let file = '';
@@ -16,6 +31,9 @@ $.address.change(function(e) {
 		subject = e.pathNames[0];
 		file = e.pathNames[0] + '.json';
 	}
+
+	// Determine lesson type based on subject
+	lessonType = getLessonType(subject);
 
 	if (e.pathNames[1] === undefined) {
 		listId = 1;
@@ -122,7 +140,13 @@ function nextTerm() {
 	$('#term').html(flashcardList[window.currentSet][window.termNo].term);
 
 //	if ($('div#def')) {
-		$('div#def').replaceWith('<input type="text" id="def" class="typeInBox"/>');
+		const inputType = getInputType();
+		// Handle both cases: div#def (after correct answer) and input#def (initial or current)
+		if ($('div#def').length) {
+			$('div#def').replaceWith('<input type="' + inputType + '" id="def" class="typeInBox"/>');
+		} else if ($('input#def').length) {
+			$('input#def').attr('type', inputType);
+		}
 
 		if (window.testMode === false && $('input#showAnswer').prop('checked') == true) {
 			defHint.val(window.currentDef);
@@ -382,4 +406,5 @@ $(function () {
 	$('ul.menu li a').address();
 
 	$('#progressbar').progressbar({ value: 0 });
+	nextTerm()
 });
