@@ -1,12 +1,13 @@
+// ==== js/flashcards.js ====
 /****  BEGIN NAVIGATION CODE  *****/
 
-var flashcardList = [];
-var subject = '';
-var listId = 1;
+let flashcardList = [];
+let subject = '';
+let listId = 1;
 
 $.address.change(function(e) {
-	var file = '';
-	var listJumpBox;
+	let file = '';
+	let listJumpBox;
 	if (e.pathNames[0] === undefined) {
 		subject = 'vocab';
 		file = 'vocab.json';
@@ -30,7 +31,7 @@ $.address.change(function(e) {
 		listJumpBox = $('select#listJumpBox');
 		listJumpBox.html('');
 
-		for (var a = 1; a <= data_in.length; ++a) {
+		for (let a = 1; a <= data_in.length; ++a) {
 		//	alert(a);
 			if (a == listId)
 			{
@@ -54,8 +55,8 @@ function Score() {
 	this.wrong = 0;
 }
 
-var score = new Score();
-var totalTerms = 0;
+let score = new Score();
+let totalTerms = 0;
 
 function setupList() {
 	window.testMode = false;
@@ -70,7 +71,7 @@ function setupList() {
 	window.sets = [];
 
 	if (window.currentSet !== 'random') {
-		for (var propName in flashcardList) {
+		for (const propName in flashcardList) {
 			 if (flashcardList.hasOwnProperty(propName) && typeof flashcardList[propName] === 'object') {
 				window.sets.push(propName);
 				totalTerms += flashcardList[propName].length;
@@ -85,8 +86,8 @@ function setupList() {
 }
 
 function showVictoryBox() {
-	var wonBox = $('div#wonBox');
-	var nextListId = +listId + 1;
+	const wonBox = $('div#wonBox');
+	const nextListId = +listId + 1;
 
 	wonBox.find('a#nextLessonLink').attr('href', '#/' + subject + '/' + nextListId);
 
@@ -98,7 +99,7 @@ function showVictoryBox() {
 }
 
 function nextTerm() {
-	var inputDef; var defHint;
+	let inputDef, defHint;
 	++window.termNo;
 	switchToNextListSet();
 
@@ -142,8 +143,8 @@ function switchToNextListSet() {
 }
 
 function checkAnswer(answer) {
-	var buttonNext;
-	var progress;
+	let buttonNext;
+	let progress;
 	//alert("answer -" + answer + "- vs " + flashcardList.roots[window.termNo].def);
 
 	if (this.lastTerm !== window.currentDef) {
@@ -206,7 +207,7 @@ function checkAnswer(answer) {
  	http://bost.ocks.org/mike/shuffle/
  */
 function shuffle(array) {
-	var m = array.length, t, i;
+	let m = array.length, t, i;
 
 	// While there remain elements to shuffle…
 	while (m) {
@@ -224,7 +225,7 @@ function shuffle(array) {
 }
 
 function substituteTermWithDef(termSet) {
-	var newTS = new Object();
+	const newTS = new Object();
 
 	newTS.term = termSet.def;
 	newTS.def = termSet.term;
@@ -233,8 +234,8 @@ function substituteTermWithDef(termSet) {
 }
 
 function randomizeLesson(chanceSwapped) {
-	var superArray = [];
-	var cardCount;
+	let superArray = [];
+	let cardCount;
 
 	if (chanceSwapped === undefined) { chanceSwapped = 5; }
 	window.questionNo = 0;
@@ -248,19 +249,19 @@ function randomizeLesson(chanceSwapped) {
 
 
 	flashcardList.random = [];
-	for (var i = 0; i < window.origSets.length; ++i) {
+	for (let i = 0; i < window.origSets.length; ++i) {
 		if (window.origSets[i] == 'random') { continue; }
 
 		superArray = superArray.concat(flashcardList[window.origSets[i]]);
 	}
 
-	var diceRoll = 0;
-	var origSet;
-	var numOfRolls = 1;
+	let diceRoll = 0;
+	let origSet;
+	let numOfRolls = 1;
 	if (window.testMode === true) { ++numOfRolls; }
 
 	cardCount = superArray.length;
-	for (i = cardCount - 1; i >= 0; --i) {
+	for (let i = cardCount - 1; i >= 0; --i) {
 		origSet = null;
 		// Remove terms that are bad for tests.
 		if (superArray[i].hasOwnProperty('dontTest') && superArray[i].dontTest === true) {
@@ -270,7 +271,7 @@ function randomizeLesson(chanceSwapped) {
 
 		if ($.isNumeric(superArray[i].def) === true ) { continue; }
 
-		for (var j = 0; j < numOfRolls; ++j) {
+		for (let j = 0; j < numOfRolls; ++j) {
 			diceRoll = Math.floor((Math.random() * chanceSwapped) + 1);
 			origSet = superArray[i];
 
@@ -309,7 +310,7 @@ function startTestMode() {
 }
 
 $('input#alwaysShowHint').click(function() {
-	var showAnswer = $('input#showAnswer');
+	const showAnswer = $('input#showAnswer');
 	if ($(this).prop('checked') == true) {
 		showAnswer.prop('checked', true);
 		$('input#defHint').val(window.currentDef);
@@ -323,9 +324,9 @@ $('input#alwaysShowHint').click(function() {
 });
 
 $(window).resize(function() {
-	var pageWrapper = $('div#page-wrapper');
-	var scrollHeight = pageWrapper.get(0).scrollHeight;
-	var newHeight = $(window).height() - pageWrapper.offset().top;
+	const pageWrapper = $('div#page-wrapper');
+	const scrollHeight = pageWrapper.get(0).scrollHeight;
+	let newHeight = $(window).height() - pageWrapper.offset().top;
 	if (newHeight < scrollHeight - 20) { newHeight = scrollHeight - 20; }
 	pageWrapper.height(newHeight);
 });
@@ -338,7 +339,7 @@ $(document).on('keypress', 'input#def', function(e) {
 });
 $(document).on('keyup	', 'input#def', function() {
 	if (window.testMode === true) { return; }
-	var typedText = $(this).val();
+	const typedText = $(this).val();
 
 	if (typedText !== '' && window.currentDef.indexOf(typedText) !== 0)
 	{
